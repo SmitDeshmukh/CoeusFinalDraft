@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="CoeusPro/static/css"> -->
+    <title>
+        {% block title %}
+            Departmental Information Storage and Retrieval Portal
+        {% endblock %}
+
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+</head>
+<body>
+<div id="page-container">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="http://www.walchandsangli.ac.in/" target="_blank">WCE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                {% for group_for in request.user.groups.all %}
+                {% if group_for.name == 'student_group' %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'student:studentHome' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                {% elif group_for.name == 'HOD_group' %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'HOD:HODHome' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                {% elif group_for.name == 'faculty_group' %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'teacher:facultyHome' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' user  %}">My Profile</a>
+                </li>
+
+                {% else  %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Register
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'teacher:facultyregister' %}">Faculty Registration</a>
+                        <a class="dropdown-item" href="{% url 'student:studentregister' %}">Student Registration</a>
+                    </div>
+                </li>
+
+
+            </ul>
+
+
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-success" href="{% url 'login' %}" style="color: white;">Login</a>
+                </li>
+            </ul>
+
+            {% endif %}
+
+            {% if isHOD %}
+            <ul class="nav navbar-nav navbar-right ">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Faculty Data
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'HOD:Paperqueries' %}">Papers Published</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:FDPqueries' %}">FDPs</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:Workshopqueries' %}">Workshops</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:GuestLecturequeries' %}">Guest Lectures Organised</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:Webinarqueries' %}">Webinars</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:OnlineCoursequeries' %}">MOOCs</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:Sttpqueries' %}">STTPs</a>
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+            {% if isHOD %}
+            <ul class="nav navbar-nav navbar-right ">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Department Data
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'HOD:PaperDeptQueries' %}">Papers Published</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:FdpDeptQueries' %}">FDPs Organised</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:WorkDeptQueries' %}">Workshops Organised</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:GlDeptQueries' %}">Guest Lectures Organised</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:WebiDeptQueries' %}">Webinars Organised</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:CourseDeptQueries' %}">MOOCs Completed</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:SttpDeptQueries' %}">STTPs Organised</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:PEQueries' %}">Professional Electives Offered</a>
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+            {% if isHOD %}
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Student Data
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'HOD:completeSTUQuery' %}">Individual Student Data</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:StudentPaperQueries' %}">Papers Published</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:StudentOnlineQueries' %}">MOOCs</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:StudentCompetitionQueries' %}">Competitions Won</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:GREQueries' %}">GRE</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:GATEQueries' %}">GATE</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:TOEFLQueries' %}">TOEFL</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:StartupQueries' %}">StartUp</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:InternshipQueries' %}">Internships</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:PlacementQueries' %}">Placements</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:ProjectQueries' %}">Projects for Social Cause</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:GraduationQueries' %}">Graduated Students</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:PEStuQueries' %}">Professional Electives Opted</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:studentsUpdated' %}">Students Updated Details</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'HOD:studentsNotUpdated' %}">Students Not Updated Details</a>
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+
+        </div>
+        {% if user.is_authenticated %}
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link btn btn-danger" style="color: white" href="{% url 'logout' %}">Logout</a>
+            </li>
+        </ul>
+        {% endif %}
+
+    </nav>
+
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" >
+
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Content -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+                    <p>Walchand College of Engineering,<br>
+                        A/P: Vishrambagh,<br>
+                        Sangli - 416 415<br>
+                        Maharashtra, India<br>
+                        Tel: +91-233-2300383<br>
+                        Fax: +91-233-2300831<br>
+                        <a href="mailto:hod.cse@walchandsangli.ac.in">Contact Us</a>
+
+                    </p>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <a href="http://www.walchandsangli.ac.in">About WCE Sangli</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="http://www.walchandsangli.ac.in/Departments/CSEDepartment/CSEDept.asp">About WCE CSE</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="http://112.133.242.241/moodle/">WCE Moodle</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="https://alumni.walchandsangli.ac.in/">Alumni Portal</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="https://walchandsangli.edugrievance.com/">Grievance Portal</a>
+                            </p>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Contact details -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">External Links</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <a href="https://www.aicte-india.org/">AICTE</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="https://www.ugc.ac.in/">UGC</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="https://www.nbaind.org/">NBA</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="http://www.dtemaharashtra.gov.in/index.html">DTE</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="http://www.unishivaji.ac.in/">Shivaji University</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="https://www.nirfindia.org/Home">NIRF</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+                    <!-- Social buttons -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
+
+                    <!-- Facebook -->
+
+                    <a type="button" class="btn-floating btn-fb">
+                        <p><i class="fa fa-facebook-f"></i></p>
+                    </a>
+                    <!-- Twitter -->
+                    <a type="button" class="btn-floating btn-tw">
+                        <p><i class="fa fa-twitter"></i></p>
+                    </a>
+                    <!-- Google +-->
+                    <a type="button" class="btn-floating btn-gplus">
+                        <p><i class="fa fa-google-plus-g"></i></p>
+                    </a>
+                    <!-- Dribbble -->
+                    <a type="button" class="btn-floating btn-dribbble">
+                        <p><i class="fa fa-dribbble"></i></p>
+                    </a>
+
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </div>
+        <!-- Footer Links -->
+    </footer>
+</div>
+<!-- Footer -->
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="{% static 'js/queries.js' %}"></script>
+</body>
+</html>

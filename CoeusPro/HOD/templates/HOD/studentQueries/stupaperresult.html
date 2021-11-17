@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Published Papers{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Published Papers: Students</h1><br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <h3>Count of Papers Published in year {{year}}: {{ countPubPapers }}</h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Paper Name</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">PRN</th>
+                <th scope="col">Conference Name</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Index</th>
+                  <th scope="col">Level</th>
+                  <!--<th scope="col">Mode</th>-->
+                  <th scope="col">PeerReviewed OR Referred</th>
+                  <th scope="col">Publication Type</th>
+                  <th scope="col">ISBN/ISSN/DOI</th>
+                  <th scope="col">Month</th>
+                  <th scope="col">Year</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredPapers %}
+                <tr class="table-primary">
+                    <td>{{ i.papertitle }}</td>
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.user.student.PRN }}</td>
+                    <td>{{ i.confname }}</td>
+                    <td>{{ i.startDate.date }}</td>
+                    <td>{{ i.endDate.date }}</td>
+                    <td>{{ i.index }}</td>
+                    <td>
+                        {% if i.level %}
+                            International
+                        {% else %}
+                            National
+                        {% endif %}
+                    </td>
+                    <!--<td>
+                        {% if i.mode %}
+                            Online
+                        {% else %}
+                            Offline
+                        {% endif %}
+                    </td>-->
+                    <td>
+                        {% if i.publicationPorR %}
+                            Peer-Reviewed
+                        {% else %}
+                            Referred
+                        {% endif %}
+                    </td>
+                    <td>{{ i.publicationtype }}</td>
+                    <td>{{ i.isbnissndoi }}</td>
+                    <td>{{ i.month }}</td>
+                    <td>{{ i.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+            <br>
+{% endblock %}

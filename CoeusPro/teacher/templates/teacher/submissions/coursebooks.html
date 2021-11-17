@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Course Books{% endblock %}
+
+{% block content %}
+<br>
+<h1>Course Books </h1>
+<br>
+<!--Add a Course-->
+
+<a class="btn btn-light" href="{% url 'teacher:addCourseBook' %}" role="button">Add a Course Book</a>
+<br><br>
+<!--View All Courses-->
+<h2>Your Course Books: </h2>
+<br>
+<h4>Course Book Count: {{ countCourseBooks }}</h4>
+<br><br>
+{% for i in allCourseBooks %}
+<div class="card text-center">
+  <div class="card-header">
+    Course Name: {{ i.name }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Course Code: {{ i.coursecode }}</h5>
+    <p class="card-text">{{ i.coursetype }}</p>
+    <h5 class="card-title">Class: {{ i.acaclass }}</h5>
+      <p class="card-text">Year: {{ i.acayear }} </p>
+      <h5 class="card-text">Semester: {{ i.semester }}</h5>
+    {% if i.certification != "NA" %}
+    <a href="{{i.coursebook}}" class="btn btn-primary">Download Course Book</a>
+    {% endif %}
+    <td><a href="{% url 'teacher:delete_itemsIO' i.id 'courseBooks' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  </div>
+</div>
+<br>
+{% endfor %}
+
+{% endblock %}

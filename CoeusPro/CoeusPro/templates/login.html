@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Log In{% endblock %}
+{% block login_active %}active{% endblock %}
+
+{% block content %}
+<!---
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Log In</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="{% url 'login'%}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="id_username">
+                                Username:
+                            </label>
+                            <div class="col-sm-10">
+                                <input id="id_username" maxlength="50" name="username" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="id_password">
+                                Password:
+                            </label>
+                            <div class="col-sm-10">
+                                <input id="id_password" maxlength="30" name="password" type="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+-->
+<br><br><br>
+<div class="container cotainer-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+            <div class="card card-login" style="padding-bottom: 10%;">
+                <form role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-header card-header-primary text-center">
+                        <h4 class="card-title">Login</h4>
+                    </div><br>
+                    <p class="card-content text-primary" style="text-align: center; font-size:1rem">{{error_message}}
+                    </p>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label" for="id_username" style="text-align:center">
+                                Username:
+                            </label>
+                            <div class="col-sm-10">
+                                <input id="id_username" maxlength="50" name="username" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="id_password">
+                                Password:
+                            </label>
+                            <div class="col-sm-10">
+                                <input id="id_password" maxlength="30" name="password" type="password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer text-center">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

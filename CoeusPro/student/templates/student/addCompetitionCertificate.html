@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Add a Competition{% endblock %}
+{% load static %}
+{% block content %}
+<br>
+<h1>Add Competition Certificate</h1>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="comp">
+            Name of the Competition:
+        </label>
+        <select name="comp" id="comp" class="form-control col-sm-10" required>
+            <option value="">--Please Select Your Competition:--</option>
+            {% for i in allCompetitions %}
+            <option value="{{i.id}}">{{i.comps.compname}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="certification">
+            Upload Certificate:
+        </label>
+        <div class="col-sm-10">
+            <input id="certification" name="certification" type="file" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success" id="sub">Add Certificate</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

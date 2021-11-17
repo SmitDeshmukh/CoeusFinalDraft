@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Students Who Updated Details in {{ year }}{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Students Who Updated Details</h1><br>
+
+        <h3>Students Who Updated Details in {{year}}: {{ countGREs }}</h3>
+        <br>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of Students Who Updated Details in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Student Name</th>
+                <th scope="col">PRN</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredGREs %}
+                <tr class="table-primary">
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.PRN }}</td>
+                    <td>{{ i.user.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

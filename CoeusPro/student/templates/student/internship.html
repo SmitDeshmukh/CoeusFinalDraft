@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Placements{% endblock %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'static/css/delete.css' %">
+</head>
+<br>
+<h1>Internships</h1>
+<br>
+<a class="btn btn-light" href="{% url 'student:addInternship' %}" role="button">Add Internship Details</a>
+<br>
+<!--View Placement Details-->
+<h6>{{error_message}}</h6><br>
+<h2>Internship Details: </h2>
+<br>
+<h4>Internship Count: {{ countInternship }}</h4>
+<br>
+{% for i in allInternship %}
+<div class="card text-center">
+  <div class="card-header">
+    Company Name: {{ i.companyName }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ i.startDate }} - {{ i.endDate }}</h5>
+    <p class="card-text">Domain: {{ i.domain }}</p>
+      {% if i.internshipType %}
+      <h5 class="card-title">Winter Internship</h5>
+      {% else %}
+      <h5 class="card-title">Summer Internship</h5>
+      {% endif %}
+      {% if i.mode %}
+      <p class="card-title">Mode: Online</p>
+      {% else %}
+      <p class="card-title">Mode: On-site/Offline</p>
+      {% endif %}
+
+      {% if i.certification != "NA" %}
+    <a href="{{i.certification}}" class="btn btn-primary">Download Certificate</a>
+    {% endif %}
+  </div>
+      <td><a href="{% url 'student:delete_items' i.id 'Internship' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  <br>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}GATE Qualified Students in {{ year }}{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>GATE Qualified Students</h1><br>
+
+        <h3>Count of GATE Qualified Students in year {{year}}: {{ countGATEs }}</h3>
+        <br>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!--<div class="form-group">
+              <input type="hidden" name="year2" value="{{year}}"/>
+          </div>-->
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of GATE Qualified Students in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Student Name</th>
+                <th scope="col">Seat Number</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Rank</th>
+                  <th scope="col">Qualified</th>
+                <th scope="col">Marksheet</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredGATEs %}
+                <tr class="table-primary">
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.seatNo }}</td>
+                    <td>{{ i.marks }}</td>
+                    <td>{{ i.rank }}</td>
+                    {% if i.qualified %}
+                    <td>Yes</td>
+                    {% else %}
+                    <td>No</td>
+                    {% endif %}
+                    {% if i.marksheetBool %}
+                    <td><a href="{{i.marksheet}}">Download</a></td>
+                    {% else %}
+                    <td>NA</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

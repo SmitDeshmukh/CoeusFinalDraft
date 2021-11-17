@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}WCE Guest Lecture{% endblock %}
+
+{% block content %}
+<br><h1>WCE Guest Lecture</h1><br>
+<!--Add a GLs-->
+<a class="btn btn-light" href="{% url 'teacher:addWCEGL' %}" role="button">Add an GL</a><br>
+<!--View All GLs-->
+<br>
+<h2>Your GLs: </h2>
+<br>
+<h4>GL Count: {{ countWCEGLs }}</h4>
+<br><br>
+{% for i in allWCEGLs %}
+<div class="card text-center">
+  <div class="card-header">
+    <h4>Topic: {{ i.topic }}</h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text">Domain: {{ i.domain }}</p>
+    <p class="card-text">Name of Resource Person: {{ i.resourcepersonname }}</p>
+    <p class="card-text">Profession of Resource Person: {{ i.resourcepersonprofession }}</p>
+    <p class="card-text">Beneficiaries: {{ i.beneficiaries }}</p>
+    <p class="card-text">Number of Participants: {{ i.numberOfParticipants }}</p>
+  </div>
+  <td><a href="{% url 'teacher:delete_items' i.id 'GLs' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  <br>
+  <div class="card-footer text-muted">
+    Date: {{ i.date.day }}/{{i.date.month}}/{{i.date.year}}
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

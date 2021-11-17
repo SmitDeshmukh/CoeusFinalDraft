@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block title %}WCE Conferences{% endblock %}
+{% load static %}
+{% block content %}
+<br>
+<h1>Add a WCE Conference</h1>
+<br>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">
+            WCE Conference Name:
+        </label>
+        <div class="col-sm-10">
+            <input id="name" maxlength="30" name="name" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="domain">
+            Domain:
+        </label>
+        <div class="col-sm-10">
+            <input id="domain" maxlength="30" name="domain" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="location">
+            Location:
+        </label>
+        <div class="col-sm-10">
+            <input id="location" maxlength="20" name="location" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="mode">
+            Mode:
+        </label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="mode" id="mode1" value="Online" checked>
+            <label class="form-check-label" for="exampleRadios1">Online</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="mode" id="mode2" value="Offline">
+            <label class="form-check-label" for="exampleRadios2">Offline</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="level">
+            Level:
+        </label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="level" id="mode1" value="International" checked>
+            <label class="form-check-label" for="exampleRadios1">International</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="level" id="mode2" value="National">
+            <label class="form-check-label" for="exampleRadios2">National</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="publicationPorR">
+            Mode:
+        </label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="publicationPorR" id="mode1" value="Peered-reviewed" checked>
+            <label class="form-check-label" for="exampleRadios1">Peer-Reviewed</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="publicationPorR" id="mode2" value="Not Peered-reviewed">
+            <label class="form-check-label" for="exampleRadios2">Not Peer-Reviewed</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="publicationtype">
+            Publication Type:
+        </label>
+        <div class="col-sm-10">
+            <input id="publicationtype" maxlength="20" name="publicationtype" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="publicationSupport">
+            Publication Support:
+        </label>
+        <div class="col-sm-10">
+            <input id="publicationSupport" maxlength="20" name="publicationSupport" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="index">
+            Index:
+        </label>
+        <div class="col-sm-10">
+            <input id="index" maxlength="20" name="index" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group col-sm-10">
+        <label class="control-label col-sm-2" for="startDate">
+            Start Date:
+        </label>
+        <input id="startDate" name="startDate" type="date" class="form-control" required>
+    </div>
+    <div class="form-group col-sm-10">
+        <label class="control-label col-sm-2" for="endDate">
+            End Date:
+        </label>
+        <input id="endDate" name="endDate" type="date" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="role">
+            Role:
+        </label>
+        <div class="col-sm-10">
+            <input id="role" maxlength="20" name="role" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="numberOfParticipants">
+            Number Of Participants:
+        </label>
+        <div class="col-sm-10">
+            <input id="numberOfParticipants" name="numberOfParticipants" type="number" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="certification">
+            Upload Certificate:
+        </label>
+        <div class="col-sm-10">
+            <input id="certification" name="certification" type="file" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Add Conference</button>
+        </div>
+    </div>
+</form>
+    <script src="{% static '/js/DateValidation.js' %}"></script>
+{% endblock %}

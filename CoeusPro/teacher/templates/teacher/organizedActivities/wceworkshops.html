@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Workshops{% endblock %}
+
+{% block content %}
+<br><h1>WCE Workshops</h1><br>
+<!--Add a Workshop-->
+<a class="btn btn-light" href="{% url 'teacher:addWCEWorkshop' %}" role="button">Add a Workshop</a><br>
+<!--View All Workshops-->
+<br>
+<h4>WCE Workshop Count: {{ countWCEWorkshops }}</h4>
+<br>
+{% for i in allWCEWorkshops %}
+<div class="card text-center">
+  <div class="card-header">
+    <h4>Workshop name: {{ i.name }}</h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text">Domain: {{ i.domain }}</p>
+    <h5 class="card-title">Organized by:{{ i.organizer }}</h5>
+    <p class="card-text">Location: {{ i.location }}</p>
+    <h6 class="card-title">Role: {{ i.role }}</h6>
+    <p class="card-text">
+    {% if i.mode == True %}
+    Mode: Online
+    {% endif %}
+    {% if i.mode == False %}
+    Mode: Offline
+    {% endif %}
+    </p>
+      <p class="card-text">Number of Participants: {{ i.numberOfParticipants }}</p>
+    {% if i.certification != "NA" %}
+    <a href="{{i.certification}}" class="btn btn-primary">Download Certificate</a>
+    {% endif %}
+  </div>
+  <td><a href="{% url 'teacher:delete_items' i.id 'Workshops' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  <br>
+  <div class="card-footer text-muted">
+           {{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }} - {{ i.endDate.day }}/{{i.endDate.month}}/{{i.endDate.year}}
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

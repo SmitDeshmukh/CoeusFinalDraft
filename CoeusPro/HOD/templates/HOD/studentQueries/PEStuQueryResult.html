@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}PE Student Queries{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>PE Student Query</h1>
+
+<h3>Students who opted for course: {{courseName}} in year {{year}}: <strong>{{ countPEs }}</strong></h3>
+<h2>Count: <strong>{{ countPEs }}</strong> </h2>
+
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Student Name</th>
+                <th scope="col">PRN</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredPEs %}
+                <tr class="table-primary">
+                    <td>{{i.student.user.first_name}} {{i.student.user.last_name}}</td>
+                    <td>{{ i.student.PRN }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

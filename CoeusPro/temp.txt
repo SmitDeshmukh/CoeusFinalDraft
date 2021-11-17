@@ -1,0 +1,35 @@
+def get(self, request, template_name='student/StartUp.html'):
+        group = request.user.groups.all()[0].name
+        if isNotStudent(group):
+            return render(request, 'login.html')
+        try:
+            user = request.user
+            allStartUp = startUp.objects.filter(user=user)
+            countStartUp = len(allStartUp)
+        except:
+            allStartUp = None
+            countStartUp = 0
+        args = {}
+        args["allStartUp"] = allStartUp
+        args["countStartUp"] = countStartUp
+        return render(request, template_name, args)
+    
+    def post(self, request, template_name='student/StartUp.html'):
+        group = request.user.groups.all()[0].name
+        if isNotStudent(group):
+            return render(request, 'login.html')
+        else:
+            ido = request.POST.get('ido')
+            thatStartUp = startUp.objects.filter(id=ido).delete()
+            args = {}
+            args["error_message"] = "StartUp Details Deleted Successfully"
+            try:
+                user = request.user
+                allStartUp = startUp.objects.filter(user=user)
+                countStartUp = len(allStartUp)
+            except:
+                allStartUp = None
+                countStartUp = 0
+            args["allStartUp"] = allStartUp
+            args["countStartUp"] = countStartUp
+            return render(request, template_name, args)

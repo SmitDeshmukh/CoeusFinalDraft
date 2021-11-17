@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Add a Graduation Exit Survey{% endblock %}
+{% load static %}
+{% block content %}
+<h1>Add a Graduation Exit Survey</h1>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="deptname">
+            Name of the Department:
+        </label>
+        <select name="deptname" id="deptname" class="form-control col-sm-10" required>
+            <option value="">--Please Select Your Department:--</option>
+            <option value="CSE">Computer Science and Engineering.</option>
+            <option value="IT">Information Technology.</option>
+            <option value="ELE">Electronics.</option>
+            <option value="EE">Electrical.</option>
+            <option value="ME">Mechanical.</option>
+            <option value="CV">Civil.</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="startYear">
+            Start Year:
+        </label>
+        <select placeholder="YYYY" name="startYear" id="ddlYears"></select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="endYear">
+            End Year:
+        </label>
+        <select placeholder="YYYY" name="endYear" id="ddlYears2"></select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="uploadgradexitsurvey">
+            Upload Graduation Exit Survey:
+        </label>
+        <div class="col-sm-10">
+            <input id="uploadgradexitsurvey" name="uploadgradexitsurvey" type="file" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success" id="sub">Add Graduation Exit Survey</button>
+        </div>
+    </div>
+
+
+</form>
+<script src="{% static '/js/paper.js' %}"></script>
+<script src="{% static '/js/paper2.js' %}"></script>
+<script src="{% static '/js/comp.js' %}"></script>
+<script src="{% static '/js/only_semester.js' %}"></script>
+{% endblock %}

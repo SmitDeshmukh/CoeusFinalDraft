@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Internships in {{ year }} for {{type2}}{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Internships</h1><br>
+
+        <h3>Count of Internships in year {{year}}: {{ countInterns }}</h3>
+        <br>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of Internships in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Student Name</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Details</th>
+                <th scope="col">Mode</th>
+                <th scope="col">Internship Type</th>
+                <th scope="col">Certificate</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredInterns %}
+                <tr class="table-primary">
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.companyName }}</td>
+                    <td>{{ i.startDate }} - {{ i.endDate }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.details }}</td>
+                    {% if i.mode is True %}
+                    <td>Online</td>
+                    {% else %}
+                    <td>On-Site</td>
+                    {% endif %}
+
+                    {% if i.internshipType is True %}
+                    <td>Winter</td>
+                    {% else %}
+                    <td>Summer</td>
+                    {% endif %}
+
+                    {% if i.certBool %}
+                    <td><a href="{{i.certification}}">Download</a></td>
+                    {% else %}
+                    <td>NA</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

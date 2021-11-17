@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}TOEFL{% endblock %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'static/css/delete.css' %">
+</head>
+<br>
+<h1>TOEFL Attempts</h1>
+<br>
+<a class="btn btn-light" href="{% url 'student:addTOEFL' %}" role="button">Add TOEFL Details</a>
+<br>
+
+<h6>{{error_message}}</h6><br>
+<h2>TOEFL Details: </h2>
+<br>
+<h4>Attempts: {{ countTOEFL }}</h4>
+<br>
+{% for i in allTOEFL %}
+<div class="card text-center">
+  <div class="card-header">
+    Registration No.- {{ i.regNo }}
+  </div>
+  <div class="card-body">
+    <p class="card-title">Test Date- {{ i.testDate }}</p>
+      <h5 class="card-text">Marks obtained- {{ i.marks }}</h5>
+    <h5 class="card-title">Marks out of- {{ i.totalMarks }}</h5>
+      <td><a href="{% url 'student:delete_items' i.id 'TOEFL' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

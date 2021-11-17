@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Assign PEs{% endblock %}
+{% load static %}
+{% block content %}
+<br>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    <h1>Assign PEs</h1>
+    <br>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="uploadcsv">
+            Upload PRN-courseCode CSV:
+        </label>
+        <div class="col-sm-10">
+            <input id="uploadcsv" name="uploadcsv" type="file" class="form-control" required>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success" id="sub">Assign PEs</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% if cantBeAdded %}
+    <h3>PEs couldn't be assigned to:</h3>
+    <br>
+    <table class="table table-borderless">
+        <thead>
+          <tr class="table-info">
+            <th scope="col">PRN</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in cantBeAdded %}
+            <tr class="table-primary">
+                <td>{{ i }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      <br>
+    {% endif %}
+    {% else %}
+    <h1>You are not authorized to access this page.Please login.</h1>
+{% endif %}
+</form>
+<script src="{% static '/js/paper.js' %}"></script>
+<script src="{% static '/js/comp.js' %}"></script>
+<script src="{% static '/js/only_semester.js' %}"></script>
+{% endblock %}

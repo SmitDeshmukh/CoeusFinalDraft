@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Papers{% endblock %}
+
+{% block content %}
+<br>
+<h1>Papers</h1>
+<!--Add a Paper-->
+<br>
+<a class="btn btn-light" href="{% url 'student:addPaper' %}" role="button">Add a Paper</a>
+<br>
+<!--View All Papers-->
+
+<h2>Your Papers: </h2>
+<br>
+<h4>Paper Count: {{ countPapers }}</h4>
+<br>
+{% for i in allPapers %}
+<div class="card text-center">
+  <div class="card-header">
+    Title:  {{ i.papers.papertitle }}
+  </div>
+  <div class="card-body">
+      {% if i.papers.mode %}
+        <h5 class="card-title">Mode: Online</h5>
+      {% else %}
+        <h5 class="card-title">Mode: In-place</h5>
+      {% endif %}
+   <!-- <h5 class="card-title">{{ i.papers.mode }}</h5> -->
+    <p class="card-text">Conference Name: {{ i.papers.confname }}</p>
+    <h5 class="card-title">Location: {{ i.papers.location }}</h5>
+    {% if i.papers.level %}
+        <p class="card-title">Level: International</p>
+      {% else %}
+        <p class="card-title">Level: National</p>
+      {% endif %}
+    <!--<h6 class="card-title">{{ i.papers.publicationPorR }}</h6> -->
+      {% if i.papers.publicationPorR %}
+        <h5 class="card-title">Peer-Reviewed</h5>
+      {% else %}
+        <h5 class="card-title">Referred</h5>
+      {% endif %}
+    <p class="card-text">Publication Type: {{ i.papers.publicationtype }}</p>
+      <h6 class="card-title">Volume {{ i.papers.volumenumber }}</h6>
+    <p class="card-text">Issue {{ i.papers.issuenumber }}</p>
+      <h6 class="card-title">ISBN/ISSN/DOI {{ i.papers.isbnissndoi }}</h6>
+    <p class="card-text">Page {{ i.papers.pagefrom }} - {{ i.papers.pageto }}</p>
+    <h6 class="card-title">Index {{ i.papers.index }}</h6>
+    <h6 class="card-title">{{ i.papers.month }}  {{ i.papers.year }}</h6>
+    <p class="card-text">Url to the published paper: <a href={{ i.papers.paperurl }}>{{ i.papers.paperurl }}</a> </p>
+
+  </div>
+  <div class="card-footer text-muted">
+    {{ i.papers.startDate.day }}/{{ i.papers.startDate.month }}/{{ i.papers.startDate.year }} - {{ i.papers.endDate.day }}/{{ i.papers.endDate.month }}/{{ i.papers.endDate.year }}
+  </div>
+
+</div>
+<br>
+{% endfor %}
+
+{% endblock %}

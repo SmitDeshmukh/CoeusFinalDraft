@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .center
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-6 col-md-6 mx-auto">
+        <div class="card center" style="margin-top: 25%">
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="card-body">
+                    <h1>Are you sure you want to delete?</h1><br>
+                    <div class="footer text-center">
+                        <button class="btn btn-danger" type="submit"><h2>Yes</h2></button>
+                        <a href="../../{{ pagetype }}"><div class="btn btn-primary"><h2>Cancel</h2></div></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

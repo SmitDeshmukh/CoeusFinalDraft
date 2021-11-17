@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% block content %}
+    <img style="display: inline;" src="http://www.walchandsangli.ac.in/images/Walchand_11.gif" alt="logo" />
+    <h1 style="display: inline;">Walchand College of Engineering, Sangli</h1>
+    <br>
+    {% if user.is_authenticated %}
+    <br>
+    <h3>Hello {{ user.username }}</h3>
+    <br>
+    <h1></h1>
+    <br>
+    <h2>Activities Attended </h2>
+    <br>
+    <div class="row">
+        <div class="column">
+            <div class="card" style="width: 30rem; height: 300px">
+
+              <div class="card-body">
+                <h5 class="card-title">Papers</h5>
+                <p class="card-text">Here you can add your papers and view your previously added papers.</p>
+                <a class="btn btn-primary stretched-link" href="{% url 'teacher:papers' %}">Details</a>
+              </div>
+            </div>
+        </div>
+        <div class="column">
+          <div class="card" style="width: 30rem; height: 300px">
+
+            <div class="card-body">
+              <h5 class="card-title">MOOCs</h5>
+              <p class="card-text">Here you can add your MOOCs and view your previously added MOOCs.</p>
+              <a class="btn btn-primary stretched-link" href="{% url 'teacher:courses' %}">Details</a>
+            </div>
+          </div>
+      </div>
+      <div class="column">
+        <div class="card" style="width: 30rem; height: 300px">
+
+          <div class="card-body">
+            <h5 class="card-title">Webinars</h5>
+            <p class="card-text">Here you can add your webinars and view your previously added webinars.</p>
+            <a class="btn btn-primary stretched-link" href="{% url 'teacher:webinars' %}">Details</a>
+          </div>
+        </div>
+    </div>
+    <div class="column">
+      <div class="card" style="width: 30rem; height: 300px">
+
+        <div class="card-body">
+          <h5 class="card-title">Workshops</h5>
+          <p class="card-text">Here you can add your workshops and view your previously added workshops.</p>
+          <a class="btn btn-primary stretched-link" href="{% url 'teacher:workshops' %}">Details</a>
+        </div>
+      </div>
+  </div>
+  <div class="column">
+    <div class="card" style="width: 30rem; height: 300px">
+      <div class="card-body">
+        <h5 class="card-title">Faculty Development Programmes</h5>
+        <p class="card-text">Here you can add your FDPs and view your previously added FDPs.</p>
+        <a class="btn btn-primary stretched-link" href="{% url 'teacher:fdps' %}">Details</a>
+      </div>
+    </div>
+</div>
+<div class="column">
+  <div class="card" style="width: 30rem; height: 300px">
+    <div class="card-body">
+      <h5 class="card-title">Short Term Training Programmes</h5>
+      <p class="card-text">Here you can add your STTPs and view your previously added STTPs.</p>
+      <a class="btn btn-primary stretched-link" href="{% url 'teacher:sttps' %}">Details</a>
+    </div>
+  </div>
+</div>
+</div>
+<br>
+
+  <h2>Activities Organized</h2>
+  <br>
+  <div class="row">
+        <div class="column">
+          <div class="card" style="width: 30rem; height: 300px">
+            <div class="card-body">
+              <h5 class="card-title">Workshops</h5>
+              <p class="card-text">Here you can add your WCE Workshops and view your previously added WCE Workshops.</p>
+              <a class="btn btn-primary stretched-link" href="{% url 'teacher:WCEWorkshops' %}">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card" style="width: 30rem; height: 300px">
+            <div class="card-body">
+              <h5 class="card-title">Faculty Development Programmes</h5>
+              <p class="card-text">Here you can add your WCE FDPs and view your previously added WCE FDPs.</p>
+              <a class="btn btn-primary stretched-link" href="{% url 'teacher:WCEFdps' %}">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card" style="width: 30rem; height: 300px">
+            <div class="card-body">
+              <h5 class="card-title">Webinars</h5>
+              <p class="card-text">Here you can add your WCE Webinars and view your previously added WCE Webinars.</p>
+              <a class="btn btn-primary stretched-link" href="{% url 'teacher:WCEWebinars' %}">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card" style="width: 30rem; height: 300px">
+            <div class="card-body">
+              <h5 class="card-title">Conferences</h5>
+              <p class="card-text">Here you can add your WCE Conferences and view your previously added WCE Conferences.</p>
+              <a class="btn btn-primary stretched-link" href="{% url 'teacher:WCEConferences' %}">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card" style="width: 30rem; height: 300px">
+            <div class="card-body">
+              <h5 class="card-title">Guest Lectures</h5>
+              <p class="card-text">Here you can add your WCE GLs and view your previously added WCE GLs.</p>
+              <a class="btn btn-primary stretched-link" href="{% url 'teacher:WCEGLs' %}">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card" style="width: 30rem; height: 300px">
+            <div class="card-body">
+              <h5 class="card-title">STTP</h5>
+              <p class="card-text">Here you can add your WCE STTPs and view your previously added WCE STTPs.</p>
+              <a class="btn btn-primary stretched-link" href="{% url 'teacher:WCESttps' %}">Details</a>
+            </div>
+          </div>
+        </div>
+    </div>
+<br>
+    <h2>Degrees and CourseBooks details</h2>
+<br>
+        <div class="row">
+<div class="column">
+  <div class="card" style="width: 30rem; height: 300px">
+    <div class="card-body">
+      <h5 class="card-title">Degrees</h5>
+      <p class="card-text">Here you can add your Degrees and view your previously added Degrees.</p>
+      <a class="btn btn-primary stretched-link" href="{% url 'teacher:degrees' %}">Details</a>
+    </div>
+  </div>
+</div>
+        <div class="column">
+          <div class="card" style="width: 30rem; height: 300px">
+            <div class="card-body">
+              <h5 class="card-title">Course Books</h5>
+              <p class="card-text">Here you can add your Course Books and view your previously added Course Books.</p>
+              <a class="btn btn-primary stretched-link" href="{% url 'teacher:courseBooks' %}">Details</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <br>
+    {% endif %}
+{% endblock %}

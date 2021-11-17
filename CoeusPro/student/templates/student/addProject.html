@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}Placements{% endblock %}
+{% load static %}
+{% block content %}
+<h1>Placements Details</h1>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="title">
+            Title :
+        </label>
+        <div class="col-sm-10">
+            <input id="title" maxlength="30" name="title" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="guideName">
+            Guide Name  :
+        </label>
+        <div class="col-sm-10">
+            <input id="guideName" maxlength="30" name="guideName" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="domain">
+        Domain of Project :
+        </label>
+        <div class="col-sm-10">
+            <input id="domain" maxlength="30" name="domain" type="text" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="semester">
+            Semester:
+        </label>
+        <div class="col-sm-10">
+            <select name="semester" id="semester" class="form-control" required>
+                <option name="first" value="1">Sem 1</option>
+                <option name="second" value="2">Sem 2</option>
+                <option name="third" value="3">Sem 3</option>
+                <option name="fourth" value="4">Sem 4</option>
+                <option name="fifth" value="5">Sem 5</option>
+                <option name="sixth" value="6">Sem 6</option>
+                <option name="seventh" value="7">Sem 7</option>
+                <option name="eighth" value="8">Sem 8</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="year">
+            Year:
+        </label>
+        <select name="year" id="ddlYears"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="socialCause">
+            Social Cause:
+        </label>
+        <div class="form-check">
+            &nbsp; &nbsp; &nbsp;<input class="form-check-input" type="radio" name="socialCause" id="mode1" value="Yes" checked>
+            &nbsp; &nbsp; &nbsp;<label class="form-check-label" for="exampleRadios1"> &nbsp; YES</label>
+        </div>
+        <div class="form-check">
+            &nbsp; &nbsp; &nbsp;<input class="form-check-input" type="radio" name="mode" id="mode2" value="No">
+            &nbsp; &nbsp; &nbsp;<label class="form-check-label" for="exampleRadios2"> &nbsp; NO</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="cause">
+           Cause/Motive :
+        </label>
+        <div class="col-sm-10">
+            <input id="cause" name="cause" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="customer">
+            Potential Customers :
+        </label>
+        <div class="col-sm-10">
+            <input id="customer" maxlength="30" name="customer" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Save Project Details</button>
+        </div>
+    </div>
+</form>
+    <script src="{% static '/js/DateValidation.js' %}"></script>
+<script src="{% static '/js/paper.js' %}"></script>
+{% endblock %}

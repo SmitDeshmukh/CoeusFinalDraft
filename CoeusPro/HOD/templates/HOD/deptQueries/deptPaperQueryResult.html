@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Published Papers in {{ year }}{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Dept Published Papers</h1><br>
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <!--<div class="form-group">
+      <input type="hidden" name="year2" value="{{year}}"/>
+  </div>-->
+  <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-success">Download CSV</button>
+      </div>
+  </div>
+</form>
+        <h3>Count of Papers published in year {{year}}: {{ countPubPapers }}</h3>
+        <br>
+        <h3>List of Papers published in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Title</th>
+                <th scope="col">Faculty Name</th>
+                <th scope="col">Conference Name</th>
+                <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                <th scope="col">Level</th>
+                  <th scope="col">Publication Type</th>
+                  <th scope="col">Peer-Reviewed OR Referred</th>
+                  <th scope="col">Index</th>
+                  <th scope="col">ISBN/ISSN/DOI</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredPapers %}
+                <tr class="table-primary">
+                    <td>{{ i.papertitle }}</td>
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.confname }}</td>
+                    <td>{{ i.startDate.date }}</td>
+                    <td>{{ i.endDate.date }}</td>
+                    {% if i.level %}
+                        <td>International</td>
+                    {% else %}
+                        <td>National</td>
+                    {% endif %}
+                    <td>{{ i.publicationtype }}</td>
+                    {% if i.publicationPorR %}
+                        <td>Peer-Reviewed</td>
+                    {% else %}
+                        <td>Referred</td>
+                    {% endif %}
+                    <td>{{i.index}}</td>
+                    <td>{{i.isbnissndoi}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

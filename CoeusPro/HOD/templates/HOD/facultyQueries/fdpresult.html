@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}Faculty Development Programme{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Faculty Development Programmes</h1><br>
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!--<div class="form-group">
+              <input type="hidden" name="year2" value="{{year}}"/>
+          </div>-->
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+    {% if option %}
+        <h3>Count of FDPs organized by {{user.first_name}} {{user.last_name}} in year {{year}}: {{ countOrFdps }}</h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Name</th>
+                <th scope="col">Faculty Name</th>
+                  <th scope="col">Role</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Organized/Delivered by</th>
+                  <th scope="col">Mode</th>
+                  <th scope="col">Number of Participants</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Certification</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allOrFDPs %}
+                <tr class="table-primary">
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.role }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.organizer }}</td>
+                    {% if i.mode %}
+                        <td>Online</td>
+                    {% else %}
+                        <td>Offline</td>
+                    {% endif %}
+                    <td>{{ i.numberOfParticipants }}</td>
+                    <td>{{ i.startDate.date }}</td>
+                    <td>{{ i.endDate.date }}</td>
+                    <td>
+                        {% if i.certification != "NA" %}
+                            <a href="{{i.certification}}">Download</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        <br>
+        {% else %}
+        <h3>Count of FDPs attended by {{user.first_name}} {{user.last_name}} in year {{year}}: {{ countAtFdps }}</h3>
+
+        <table class="table table-borderless">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Name</th>
+                <th scope="col">Faculty Name</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Organized/Delivered by</th>
+                  <th scope="col">Mode</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Certification</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allAtFDPs %}
+                <tr class="table-primary">
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.organizer }}</td>
+                    {% if i.mode %}
+                        <td>Online</td>
+                    {% else %}
+                        <td>Offline</td>
+                    {% endif %}
+                    <td>{{ i.startDate.date }}</td>
+                    <td>{{ i.endDate.date }}</td>
+                    <td>
+                        {% if i.certification != "NA" %}
+                            <a href="{{i.certification}}">Download</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+            <br>
+    {% endif %}
+{% endblock %}

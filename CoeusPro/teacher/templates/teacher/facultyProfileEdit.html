@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    {% if messages %}
+        {% for message in messages %}
+        <br>
+        <div class="alert alert-{{ message.tags }} col-sm-10">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <h2>Edit Profile</h2>
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <div class="form-group">
+        <div class="form-group">
+        <label class="control-label col-sm-10" for="profile">
+            Profile Picture:
+        </label>
+        <div class="col-sm-3">
+            <img src="{{ user.faculty.profile }}" width="250">
+            <input id="profile" name="profile" type="file" class="form-control">
+        </div>
+    </div>
+        <label class="control-label col-sm-10" for="dept">
+            Designation:
+        </label>
+        <select name="designation" id="designation" class="form-control col-sm-10" required>
+            {% ifequal user.faculty.desig "Professor" %}
+            <option value={{ user.faculty.desig }}>{{ user.faculty.desig }}</option>
+            {% endifequal %}
+            <option value="Associate Professor">Associate Professor</option>
+            <option value="Assistant Professor">Assistant Professor</option>
+            <option value="Professor">Professor</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-10" for="degree">
+            Highest Degree:
+        </label>
+        <div class="col-sm-10">
+            <input id="degree" maxlength="30" name="degree" type="text" class="form-control" value={{ user.faculty.degree }} required>
+            <!--<span id="degree" contenteditable="true" class="form-control">{{ user.faculty.degree }}</span>-->
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-10" for="dept">
+            Department:
+        </label>
+        <select name="dept" id="dept" class="form-control col-sm-10" required>
+            <option value={{ user.faculty.dept }}>{{ user.faculty.dept }}</option>
+            <option value="CSE">Computer Science and Engineering.</option>
+            <option value="IT">Information Technology.</option>
+            <option value="ELE">Electronics.</option>
+            <option value="EE">Electrical.</option>
+            <option value="ME">Mechanical.</option>
+            <option value="CV">Civil.</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success" >Update</button>
+        </div>
+    </div>
+    <br>
+    {% else %}
+    <h1>You are not authorized to access this page.Please login.</h1>
+    {% endif %}
+</form>
+{% endblock %}

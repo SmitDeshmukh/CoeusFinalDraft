@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Papers{% endblock %}
+
+{% block content %}
+<br>
+<h1>Papers</h1>
+<!--Add a Paper-->
+<br>
+<a class="btn btn-light" href="{% url 'teacher:addPaper' %}" role="button">Add a Paper</a>
+<br>
+<!--View All Papers-->
+<h2>Your Papers: </h2>
+<br>
+<h4>Paper Count: {{ countPapers }}</h4>
+<br>
+{% for i in allPapers %}
+<div class="card text-center">
+  <div class="card-header">
+    Title:  {{ i.papertitle }}
+  </div>
+  <div class="card-body">
+      {% if i.mode %}
+        <h5 class="card-title">Mode: Online</h5>
+      {% else %}
+        <h5 class="card-title">Mode: In-place</h5>
+      {% endif %}
+    {% if i.inorout %}
+        <h5 class="card-title">Conducted In WCE</h5>
+      {% else %}
+        <h5 class="card-title">Conducted Outside WCE</h5>
+      {% endif %}
+   <!-- <h5 class="card-title">{{ i.papers.mode }}</h5> -->
+    <p class="card-text">Conference Name: {{ i.confname }}</p>
+    <h5 class="card-title">Location: {{ i.location }}</h5>
+    <!--<p hidden id="coauth">{{i.coauthor}}</p>-->
+    <p>Co-author(s): {{i.coauthor}}</p>
+    {% if i.level %}
+    <p class="card-text">Level: International</p>
+    {% else %}
+    <p class="card-text">Level: National</p>
+    {% endif %}
+    <!--<h6 class="card-title">{{ i.papers.publicationPorR }}</h6> -->
+      {% if i.publicationPorR %}
+        <h5 class="card-title">Peer-Reviewed</h5>
+      {% else %}
+        <h5 class="card-title">Referred</h5>
+      {% endif %}
+    <p class="card-text">Publication Type: {{ i.publicationtype }}</p>
+      <h6 class="card-title">Volume number: {{ i.volumenumber }}</h6>
+    <p class="card-text">Issue number: {{ i.issuenumber }}</p>
+      <h6 class="card-title">ISBN/ISSN/DOI {{ i.isbnissndoi }}</h6>
+    <p class="card-text">Page {{ i.pagefrom }} - {{ i.pageto }}</p>
+    <h6 class="card-title">Index: {{ i.index }}</h6>
+    <h6 class="card-title">{{ i.month }}  {{ i.year }}</h6>
+    <p class="card-text">Url to the published paper: <a href={{ i.paperurl }}>{{ i.paperurl }}</a> </p>
+  </div>
+  <td><a href="{% url 'teacher:delete_itemsIO' i.id 'papers' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  <br>
+  <div class="card-footer text-muted">
+        {{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }} - {{ i.endDate.day }}/{{i.endDate.month}}/{{i.endDate.year}}
+
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

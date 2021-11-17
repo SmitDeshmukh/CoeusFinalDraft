@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}PEs{% endblock %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'static/css/delete.css' %">
+</head>
+<br>
+<h1>Professional Electives</h1>
+<br>
+    <h6>{{error_message}}</h6><br>
+{% if user.is_authenticated %}
+    {% for i in allPEs %}
+    <div class="card text-center">
+        <div class="card-header">
+            Course Name: {{ i.PE.courseName }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Course Code: {{ i.PE.courseCode }}</h5>
+
+            {% ifequal  i.PE.acadYear  1 %}
+                <p class="card-text">Year of Study: First year</p>
+            {% endifequal %}
+            {% ifequal i.PE.acadYear 2 %}
+                <p class="card-text">Year of Study: Second year</p>
+            {% endifequal %}
+            {% ifequal i.PE.acadYear 3 %}
+                <p class="card-text">Year of Study: Third year</p>
+            {% endifequal %}
+            {% ifequal i.PE.acadYear 4 %}
+                <p class="card-text">Year of Study: Fourth year</p>
+            {% endifequal %}
+            <p class="card-text">Semester: {{ i.PE.sem }}</p>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+{% else %}
+<h1>You are not authorized to access this page.Please login.</h1>
+{% endif %}
+    {% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Projects{% endblock %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'static/css/delete.css' %">
+</head>
+<br>
+<h1>Projects</h1>
+<br>
+<a class="btn btn-light" href="{% url 'student:addProject' %}" role="button">Add Projects</a>
+<br>
+<!--View Project Details-->
+<h6>{{error_message}}</h6><br>
+<h2>Project Details: </h2>
+<br>
+<h4>Course Count: {{ countProjects }}</h4>
+<br>
+{% for i in allProjects %}
+<div class="card text-center">
+  <div class="card-header">
+    Project Title: {{ i.title }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Guide Name: {{ i.guideName }}</h5>
+    <p class="card-text">Domain: {{ i.domain }}</p>
+    <h5 class="card-title">Cause: {{ i.cause }}</h5>
+      <p class="card-text">Potential Customer: {{ i.customer }}</p>
+      <h5 class="card-title">
+          {% if i.socialCause %}
+            Social Cause: Yes
+          {% else %}
+            Social Cause: Yes
+          {% endif %}
+      </h5>
+    <td><a href="{% url 'student:delete_items' i.id 'projects' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

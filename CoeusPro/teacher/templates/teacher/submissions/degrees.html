@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Degrees{% endblock %}
+
+{% block content %}
+<br><h1>Degrees</h1><br>
+<!--Add a Degree-->
+<a class="btn btn-light" href="{% url 'teacher:addDegree' %}" role="button">Add a Degree</a><br>
+<!--View All Degrees-->
+<br>
+<h2>Your Degrees: </h2>
+<br>
+<h4>Degrees Count: {{ countDegrees }}</h4>
+<br><br>
+{% for i in allDegrees %}
+<div class="card text-center">
+  <div class="card-header">
+    <h4>Degree: {{ i.namedegree }}</h4>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Name of College: {{ i.namecllg }}</h5>
+    <p class="card-text">{{ i.namefaculty }}</p>
+    {% if i.certification != "NA" %}
+    <a href="{{i.certification}}" class="btn btn-primary">Download Certificate</a>
+    {% endif %}
+  </div>
+  <td><a href="{% url 'teacher:delete_itemsIO' i.id 'degrees' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  <br>
+  <div class="card-footer text-muted">
+    Passing year: {{ i.yearpassing }}
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

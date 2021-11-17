@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Conferences{% endblock %}
+
+{% block content %}
+<br><h1>WCE Conferences</h1><br>
+<!--Add a Conference-->
+<a class="btn btn-light" href="{% url 'teacher:addWCEConference' %}" role="button">Add a WCE Conference</a><br>
+<!--View All Conferences-->
+<br>
+<h2>Your WCE Conferences: </h2>
+<br>
+<h4>WCE Conference Count: {{ countWCEConferences }}</h4>
+<br><br>
+{% for i in allWCEConferences %}
+<div class="card text-center">
+  <div class="card-header">
+    <h4>Name: {{ i.name }}</h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text">Domain: {{ i.domain }}</p>
+    <p class="card-text">Location: {{ i.location }}</p>
+    <h6 class="card-title">Role: {{ i.role }}</h6>
+    <p class="card-text">
+    {% if i.mode == True %}
+    Mode: Online
+    {% endif %}
+    {% if i.mode == False %}
+    Mode: Offline
+    {% endif %}
+    </p>
+    <p class="card-text">
+        {% if i.level == True %}
+        Level: International
+        {% endif %}
+        {% if i.level == False %}
+        Level: National
+        {% endif %}
+        </p>
+      <p class="card-text">Number of Participants: {{ i.numberOfParticipants }}</p>
+      <p class="card-text">Index: {{ i.index }}</p>
+      <p class="card-text">
+        {% if i.publicationPorR%}
+        Peer-Reviewed
+        {% else %}
+        Not Peer-Reviewed
+        {% endif %}
+        </p>
+        <p class="card-text">Publication Type: {{ i.publicationtype }}</p>
+        <p class="card-text">Publication Support: {{ i.publicationSupport }}</p>
+    {% if i.certification != "NA" %}
+    <a href="{{i.certification}}" class="btn btn-primary">Download Certificate</a>
+    {% endif %}
+  </div>
+ <td><a href="{% url 'teacher:delete_items' i.id 'Conferences' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  <br>
+    <div class="card-footer text-muted">
+        {{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }} - {{ i.endDate.day }}/{{i.endDate.month}}/{{i.endDate.year}}
+
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

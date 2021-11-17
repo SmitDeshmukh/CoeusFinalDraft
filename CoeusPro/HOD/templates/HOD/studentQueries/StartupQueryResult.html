@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Students who started a Start-Up in {{ year }}{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Students who started a Start-Up</h1><br>
+
+        <h3>Count of Students who started a Start-Up in year {{year}}: {{ countStartups }}</h3>
+        <br>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of Students who started a Start-Up in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Student Name</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Registration Number</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Supporting Agency</th>
+                  <th scope="col">Year</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredStartups %}
+                <tr class="table-primary">
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.companyName }}</td>
+                    <td>{{ i.registrationNumber }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.supportingAgency }}</td>
+                    <td>{{ i.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

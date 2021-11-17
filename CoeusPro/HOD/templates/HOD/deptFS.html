@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Department Feedback Surveys{% endblock %}
+
+{% block content %}
+    <br>
+    <h1>Department Feedback Surveys</h1>
+    <br>
+    <!--Add a Department Feedback Survey-->
+    <br>
+    <a class="btn btn-light" href="{% url 'HOD:addDepartmentFeedbackSurvey' %}" role="button">Add a Department Feedback Survey</a>
+    <br><br><br>
+    <!--View All Department Feedback Surveys-->
+
+    <h2>Your Department Feedback Surveys: </h2>
+    <br>
+    <h4>Department Feedback Surveys Count: {{ countDeptFS }}</h4>
+    <br><br>
+    {% for i in allDeptFS %}
+        <div class="card text-center">
+            <div class="card-header">
+                Department Name:  {{ i.deptname }}
+            </div>
+            <h5 class="card-title">Academic Class: {{ i.courseclass }}</h5>
+
+            <!-- <h5 class="card-title">{{ i.papers.mode }}</h5> -->
+            <h5 class="card-title">Year: {{ i.year }}</h5>
+            <p class="card-text">Semester: {{ i.semester }}</p>
+            <div class="form-group">
+                <a href=" {{i.uploadcourseexitsurvey}} " class="btn btn-primary">Download Department Feedback Survey</a>
+            </div>
+            <td><a href="{% url 'HOD:delete_items' i.id 'DepartmentFeedbackSurveys' %}"><button type="button" class="btn btn-danger">Delete Department Feedback Survey</button></a></td>
+        </div>
+        <br>
+    {% endfor %}
+
+{% endblock %}

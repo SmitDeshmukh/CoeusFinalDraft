@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Graduated Students{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Graduated Students</h1><br>
+
+        <h3>Count of Students in year enrolled in year {{ yearOfEnrollment }} and graduated in year {{ yearOfGraduation }}: {{ countGrads }}</h3>
+        <br>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of Placed Students in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Student Name</th>
+                <th scope="col">PRN</th>
+                <th scope="col">Year of Enrollment</th>
+                  <th scope="col">Year of Graduation</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredGrads %}
+                <tr class="table-primary">
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.PRN }}</td>
+                    <td>{{ i.yearOfEnrollment }}</td>
+                    <td>{{ i.yearOfGraduation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

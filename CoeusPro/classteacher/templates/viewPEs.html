@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}PEs{% endblock %}
+{% block content %}
+<br><h1>PEs</h1><br>
+
+<div class="container">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-offset-2">
+                        <a style="margin:5px;" class="btn btn-primary" href="{% url 'classteacher:PEs' %}" role="button">Add a PE</a><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2">
+                        <a style="margin:5px;" class="btn btn-primary" href="{% url 'classteacher:assignPEs' %}" role="button">Assign PEs CSV</a><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+<br>
+<h2>Your PEs: </h2>
+<br>
+<h4>PE Count: {{ countPEs }}</h4>
+<br><br>
+{% for i in allPEs %}
+<div class="card text-center">
+    <div class="card-header">
+        Course Name:  {{ i.courseName }}
+    </div>
+    <h5 class="card-title">Course Code: {{ i.courseCode }}</h5>
+    <p class="card-text">Year: {{ i.year }}</p>
+    <h5 class="card-title">Year of Study: {{ i.acadYear }} year</h5>
+    <p class="card-text">Semester: {{ i.semester }}</p>
+    <td><a href="{% url 'classteacher:delete_items' i.id 'viewPEs' %}"><button type="button" class="btn btn-danger">Delete Course</button></a></td>
+    {% endfor %}
+</div>
+<br>
+{% endblock %}

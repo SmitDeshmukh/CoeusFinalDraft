@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Student Profile</h1>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="id_username">
+            Firstname:
+        </label>
+        <div class="col-sm-10">
+            <span class="form-control">{{ user.first_name }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="id_username">
+            Lastname:
+        </label>
+        <div class="col-sm-10">
+            <span class="form-control">{{ user.last_name }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="id_username">
+            Email:
+        </label>
+        <div class="col-sm-10">
+            <span class="form-control">{{ user.email }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="id_username">
+            PRN:
+        </label>
+        <div class="col-sm-10">
+            <span class="form-control">{{ user.student.PRN }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="yearOfEnrollment">
+            Year of Enrollment:
+        </label>
+        <div class="col-sm-10">
+            <span class="form-control">{{ user.student.yearOfEnrollment }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="isDA">
+            Direct Second Year:
+        </label>
+        {% if user.student.isDA %}
+            <div class="col-sm-10">
+                <span class="form-control">YES</span>
+            </div>
+        {% else %}
+            <div class="col-sm-10">
+                <span class="form-control">NO</span>
+            </div>
+        {% endif %}
+        <label class="control-label col-sm-2" for="id_username">
+            Current Year of Study:
+        </label>
+        {% ifequal user.student.year 1 %}
+        <div class="col-sm-10">
+            <span class="form-control">First year</span>
+        </div>
+        {% endifequal %}
+        {% ifequal user.student.year 2 %}
+        <div class="col-sm-10">
+            <span class="form-control">Second year</span>
+        </div>
+        {% endifequal %}
+        {% ifequal user.student.year 3 %}
+        <div class="col-sm-10">
+            <span class="form-control">Third year</span>
+        </div>
+        {% endifequal %}
+        {% ifequal user.student.year 4 %}
+        <div class="col-sm-10">
+            <span class="form-control">Fourth year</span>
+        </div>
+        {% endifequal %}
+        <label class="control-label col-sm-2" for="yearOfEnrollment">
+            Year of Graduation:
+        </label>
+        <div class="col-sm-10">
+            <span class="form-control">{{ user.student.yearOfGraduation }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="id_username">
+            Semester:
+        </label>
+        <div class="col-sm-10">
+            <span class="form-control">{{ user.student.semester }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="id_username">
+            Department:
+        </label>
+        <div class="col-sm-10">
+            <span class="form-control">{{ user.student.dept }}</span>
+        </div>
+        <br>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a style="margin:5px;" class="btn btn-warning" href="{% url 'change_password' %}">Change Password</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

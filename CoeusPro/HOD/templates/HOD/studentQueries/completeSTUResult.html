@@ -1,0 +1,447 @@
+{% extends 'base.html' %}
+{% block title %}Student Data{% endblock %}
+{% load static %}
+{% block content %}
+<br><br>
+{% csrf_token %}
+{% if user.is_authenticated %}
+<div id="printableArea">
+    <h4>Name of the Student: {{ userObj.first_name }} {{ userObj.last_name }} </h4>
+    <h4>PRN: {{ userObj.student.PRN }}</h4>
+    <h4>Current Year of Study:: {% ifequal userObj.student.year 1 %}
+                        1st Year
+                       {% endifequal %}
+                        {% ifequal userObj.student.year 2 %}
+                        2nd Year
+                        {% endifequal %}
+                        {% ifequal userObj.student.year 3 %}
+                        3rd Year
+                        {% endifequal %}
+                        {% ifequal userObj.student.year 4 %}
+                        4th Year
+                        {% endifequal %}
+    </h4>
+    <h4>Semester: {{ userObj.student.semester }}</h4>
+<br>
+        <table class="table table-bordered">
+            <thead>
+            <h5>Courses:</h5>
+              <tr class="table-info">
+                <th scope="col">Course Name</th>
+                <th scope="col">Domain</th>
+                  <th scope="col">Platform</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Certification</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allCourses %}
+                <tr class="table-primary">
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.platform }}</td>
+                    <td>{{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }}</td>
+                    <td>{{ i.endDate.day }}/{{ i.endDate.month }}/{{ i.endDate.year }}</td>
+                    {% if i.certification != "NA" %}
+                        <td><a href="{{i.certification}}">Download</a></td>
+                            {% else %}
+                            <td><p>None</p></td>
+                        {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>Webinars Attended:</h5>
+              <tr class="table-info">
+                <th scope="col">Webinar Name</th>
+                <th scope="col">Domain</th>
+                  <th scope="col">Organized by</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Certification</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allWebinars %}
+                <tr class="table-primary">
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.organizer }}</td>
+                    <td>{{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }}</td>
+                    <td>{{ i.endDate.day }}/{{ i.endDate.month }}/{{ i.endDate.year }}</td>
+                    <td>
+                        {% if i.certification != "NA" %}
+                            <a href="{{i.certification}}">Download</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>Workshops Attended:</h5>
+              <tr class="table-info">
+                <th scope="col">Name</th>
+                  <th scope="col">Organized by</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Certification</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allWorkshops %}
+                <tr class="table-primary">
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.organizer }}</td>
+                    <td>{{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }}</td>
+                    <td>{{ i.endDate.day }}/{{ i.endDate.month }}/{{ i.endDate.year }}</td>
+                    <td>
+                        {% if i.certification != "NA" %}
+                            <a href="{{i.certification}}">Download</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>Competitions:</h5>
+              <tr class="table-info">
+                <th scope="col">Competition Name</th>
+                <th scope="col">Organized by</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Project</th>
+                  <th scope="col">Mode</th>
+                  <th scope="col">Winner/Participant</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allCompetitions %}
+                <tr class="table-primary">
+                    <td>{{ i.compname }}</td>
+                    <td>{{ i.organizer }}</td>
+                    <td>{{ i.location }}</td>
+                    <td>{{ i.projectTitle }}</td>
+                    <td>
+                        {% if i.mode == True %}
+                            Online
+                        {% else %}
+                            Offline
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.winner == True %}
+                            Winner
+                        {% else %}
+                            Participant
+                        {% endif %}
+                    </td>
+                    <td>{{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }}</td>
+                    <td>{{ i.endDate.day }}/{{ i.endDate.month }}/{{ i.endDate.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>Papers Published:</h5>
+              <tr class="table-info">
+                <th scope="col">Paper Name</th>
+                <th scope="col">Conference Name</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Index</th>
+                  <th scope="col">Level</th>
+                  <th scope="col">PeerReviewed OR Referred</th>
+                  <th scope="col">Publication Type</th>
+                  <th scope="col">ISBN/ISSN/DOI</th>
+                  <th scope="col">Month</th>
+                  <th scope="col">Year</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allPapers %}
+                <tr class="table-primary">
+                    <td>{{ i.papertitle }}</td>
+                    <td>{{ i.confname }}</td>
+                    <td>{{ i.location }}</td>
+                    <td>{{ i.index }}</td>
+                    <td>
+                        {% if i.level %}
+                            International
+                        {% else %}
+                            National
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.publicationPorR %}
+                            Peer-Reviewed
+                        {% else %}
+                            Referred
+                        {% endif %}
+                    </td>
+                    <td>{{ i.publicationtype }}</td>
+                    <td>{{ i.isbnissndoi }}</td>
+                    <td>{{ i.month }}</td>
+                    <td>{{ i.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>TOEFL:</h5>
+              <tr class="table-info">
+                <th scope="col">Registration Number</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Total Marks</th>
+                  <th scope="col">Exam Date</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allTOEFL %}
+                <tr class="table-primary">
+                    <td>{{ i.regNo }}</td>
+                    <td>{{ i.marks }}</td>
+                    <td>{{ i.totalMarks }}</td>
+                    <td>{{ i.testDate }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>GATE:</h5>
+              <tr class="table-info">
+                <th scope="col">Seat Number</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Rank</th>
+                  <th scope="col">Qualified</th>
+                  <th scope="col">Exam Date</th>
+                <th scope="col">Marksheet</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allGATE %}
+                <tr class="table-primary">
+                    <td>{{ i.seatNo }}</td>
+                    <td>{{ i.marks }}</td>
+                    <td>{{ i.rank }}</td>
+                    {% if i.qualified %}
+                    <td>Yes</td>
+                    {% else %}
+                    <td>No</td>
+                    {% endif %}
+                    <td>{{ i.testDate }}</td>
+                    {% if i.marksheetBool %}
+                    <td><a href="{{i.marksheet}}">Download</a></td>
+                    {% else %}
+                    <td>NA</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>GRE</h5>
+              <tr class="table-info">
+                <th scope="col">Registration Number</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Total Marks</th>
+                  <th scope="col">Exam Date</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allGRE %}
+                <tr class="table-primary">
+                    <td>{{ i.regNo }}</td>
+                    <td>{{ i.marks }}</td>
+                    <td>{{ i.totalMarks }}</td>
+                    <td>{{ i.testDate }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>Internships:</h5>
+              <tr class="table-info">
+                <th scope="col">Company Name</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Details</th>
+                <th scope="col">Mode</th>
+                <th scope="col">Internship Type</th>
+                  <th scope="col">Duration</th>
+                <th scope="col">Certificate</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allInternship %}
+                <tr class="table-primary">
+                    <td>{{ i.companyName }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.details }}</td>
+                    {% if i.mode is True %}
+                    <td>Online</td>
+                    {% else %}
+                    <td>On-Site</td>
+                    {% endif %}
+
+                    {% if i.internshipType is True %}
+                    <td>Winter</td>
+                    {% else %}
+                    <td>Summer</td>
+                    {% endif %}
+                    <td>{{ i.startDate }} - {{ i.endDate }}</td>
+                    {% if i.certBool %}
+                    <td><a href="{{i.certification}}">Download</a></td>
+                    {% else %}
+                    <td>NA</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>Placement:</h5>
+              <tr class="table-info">
+                <th scope="col">Company Name</th>
+                <th scope="col">Domain</th>
+                <th scope="col">CTC</th>
+                <th scope="col">Role</th>
+                  <th scope="col">Year of Placement</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allPlacements %}
+                <tr class="table-primary">
+                    <td>{{ i.companyName }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.ctc }}</td>
+                    <td>{{ i.role }}</td>
+                    <td>{{ i.yearPlaced }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>StartUps:</h5>
+              <tr class="table-info">
+                <th scope="col">Company Name</th>
+                <th scope="col">Registration Number</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Supporting Agency</th>
+                  <th scope="col">Year</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allStartUp %}
+                <tr class="table-primary">
+                    <td>{{ i.companyName }}</td>
+                    <td>{{ i.registrationNumber }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.supportingAgency }}</td>
+                    <td>{{ i.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>Projects:</h5>
+              <tr class="table-info">
+                <th scope="col">Project Title</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Guide Name</th>
+                <th scope="col">Social Cause</th>
+                  <th scope="col">Year</th>
+                <th scope="col">Customer</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allProjects %}
+                <tr class="table-primary">
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.semester }}</td>
+                    <td>{{ i.guideName }}</td>
+                    {% if i.socialCause %}
+                    <td>Yes</td>
+                    {% else %}
+                    <td>No</td>
+                    {% endif %}
+                    <td>{{ i.year }}</td>
+                    <td>{{ i.customer }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <table class="table table-bordered">
+            <thead>
+            <h5>Professional Electives:</h5>
+              <tr class="table-info">
+                <th scope="col">Course Name</th>
+                <th scope="col">Course Code</th>
+                  <th scope="col">Year of Study</th>
+                <th scope="col">Semester</th>
+                  <th scope="col">Year</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in allPEs %}
+                <tr class="table-primary">
+                    <td>{{ i.PE.courseName }}</td>
+                    <td>{{ i.PE.courseCode }}</td>
+                    {% ifequal  i.PE.acadYear  1 %}
+                    <td>First year</td>
+                    {% endifequal %}
+                    {% ifequal i.PE.acadYear 2 %}
+                        <td>Second year</td>
+                    {% endifequal %}
+                    {% ifequal i.PE.acadYear 3 %}
+                        <td>Third year</td>
+                    {% endifequal %}
+                    {% ifequal i.PE.acadYear 4 %}
+                        <td>Fourth year</td>
+                    {% endifequal %}
+                    <td>{{ i.PE.sem }}</td>
+                    <td>{{ i.PE.year }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+</div>
+
+<div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" onclick="printDiv('printableArea')" class="btn btn-success ">Print</button>
+        </div>
+</div>
+<br>
+<script src="{% static '/js/printWebpage.js' %}"></script>
+{% else %}
+    <h1>You are not authorized to access this page.Please login.</h1>
+{% endif %}
+{% endblock %}

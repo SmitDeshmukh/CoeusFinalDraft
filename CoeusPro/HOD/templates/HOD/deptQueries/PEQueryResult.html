@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}PE Query Result{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>PE Query Result:</h1><br>
+
+        <h3>Count of Professional Electives Offered in Year: {{ year }} || Academic Year:{{ acadYear }} || Sem {{ sem }}: </h3>
+<h2>Count: {{countPEs}}</h2>
+        <!--<h3>Count of Available PEs in Year {{ acadYear }} and Sem {{ sem }}: {{countUniquePEs}}</h3>-->
+        <br>
+        <!--<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of PE Students in year {{acadYear}} and sem {{sem}}: </h3>-->
+        <h3>List of Professional Electives Offered in Year: {{ year }} || Academic Year:{{ acadYear }} || Year Semester {{ sem }}:</h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                  <th scope="col">Course Code</th>
+                <th scope="col">Course Name</th>
+                <!--<th scope="col">Student Name</th>
+                <th scope="col">Student Mail ID</th>
+                <th scope="col">PE Name</th>
+                <th scope="col">PE Code</th>
+                <th scope="col">Academic Year</th>
+                <th scope="col">Sem</th>-->
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredPEs %}
+                <tr class="table-primary">
+                    <td>{{ i.courseCode }}</td>
+                    <td>{{ i.courseName }}</td>
+                    <!--<td>{{ i.student.user.first_name }} {{ i.student.user.last_name }}</td>
+                    <td>{{ i.student.user.email}}</td>
+                    <td>{{ i.PE.courseName }}</td>
+                    <td>{{ i.PE.courseCode }}</td>
+                    <td>{{ i.PE.acadYear }}</td>
+                    <td>{{ i.PE.sem }}</td>-->
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Webinars{% endblock %}
+
+{% block content %}
+<br><h1>Webinars</h1><br>
+<!--Add a Webinar-->
+<a class="btn btn-light" href="{% url 'teacher:addWebinar' %}" role="button">Add a Webinar</a><br>
+<!--View All Webinars-->
+<br>
+<h2>Your Webinars: </h2>
+<br>
+<h4>Webinar Count: {{ countWebinars }}</h4>
+<br><br>
+{% for i in allWebinars %}
+<div class="card text-center">
+  <div class="card-header">
+    <h4>Webinar name: {{ i.name }}</h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text">Domain: {{ i.domain }}</p>
+    <h5 class="card-title">Organized by: {{ i.organizer }}</h5>
+    <p class="card-text">Location: {{ i.location }}</p>
+    <p class="card-text">
+    {% if i.mode == True %}
+    Mode: Online
+    {% endif %}
+    {% if i.mode == False %}
+    Mode: Offline
+    {% endif %}
+    </p>
+    {% if i.inorout %}
+        <h5 class="card-title">In WCE</h5>
+      {% else %}
+        <h5 class="card-title">Outside WCE</h5>
+      {% endif %}
+    {% if i.certification != "NA" %}
+    <a href="{{i.certification}}" class="btn btn-primary">Download Certificate</a>
+    {% endif %}
+        <td><a href="{% url 'teacher:delete_itemsIO' i.id 'webinars' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+
+  </div>
+  <div class="card-footer text-muted">
+        {{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }} - {{ i.endDate.day }}/{{i.endDate.month}}/{{i.endDate.year}}
+
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

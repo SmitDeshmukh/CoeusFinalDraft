@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href={% static "/css/style.css" %}>
+<img style="display: inline;" src="http://www.walchandsangli.ac.in/images/Walchand_11.gif" alt="logo" />
+    <h1 style="display: inline;">Walchand College of Engineering, Sangli</h1>
+    <br>
+    {% if user.is_authenticated %}
+    <br>
+    <h3>Hello {{ user.username }} (HOD)</h3>
+    <br>
+    <div class="row">
+        <div class="column">
+            <div class="card" style="width: 30rem; height: 300px">
+
+              <div class="card-body">
+                <h5 class="card-title">Course Exit Survey</h5>
+                <p class="card-text">Here you can add your course exit surveys and view your previously added course exit surveys.</p>
+                <a class="btn btn-primary stretched-link" href="{% url 'HOD:courseES' %}">Details</a>
+              </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card" style="width: 30rem; height: 300px">
+
+              <div class="card-body">
+                <h5 class="card-title">Department Feedback Survey</h5>
+                <p class="card-text">Here you can add your Department Feedback Surveys and view your previously added Department Feedback Surveys.</p>
+                <a class="btn btn-primary stretched-link" href="{% url 'HOD:DepartmentFeedbackSurveys' %}">Details</a>
+              </div>
+           </div>
+        </div>
+
+        <div class="column">
+            <div class="card" style="width: 30rem; height: 300px">
+
+              <div class="card-body">
+                <h5 class="card-title">Graduate Exit Survey</h5>
+                <p class="card-text">Here you can add your Graduate Exit Surveys and view your previously added Graduate Exit Surveys.</p>
+                <a class="btn btn-primary stretched-link" href="{% url 'HOD:GraduationExitSurveys' %}">Details</a>
+              </div>
+          </div>
+        </div>
+
+        <div class="column">
+            <div class="card" style="width: 30rem; height: 300px">
+
+              <div class="card-body">
+                <h5 class="card-title">Add Faculty CSV</h5>
+                <p class="card-text">Here you can add the faculty accounts by uploading a CSV file.</p>
+                <a class="btn btn-primary stretched-link" href="{% url 'HOD:addFaculty' %}">Details</a>
+              </div>
+          </div>
+        </div>
+    </div>
+    <script>
+      
+    </script>
+    {% else %}
+        <h1>You are not authorized to access this page.Please login.</h1>
+    {% endif %}
+{% endblock %}

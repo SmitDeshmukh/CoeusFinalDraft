@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}GRE Qualified Students in {{ year }}{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>GRE Qualified Students</h1><br>
+
+        <h3>Count of GRE Qualified Students in year {{year}}: {{ countGREs }}</h3>
+        <br>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of GRE Qualified Students in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Student Name</th>
+                <th scope="col">Registration Number</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Total Marks</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredGREs %}
+                <tr class="table-primary">
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.regNo }}</td>
+                    <td>{{ i.marks }}</td>
+                    <td>{{ i.totalMarks }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

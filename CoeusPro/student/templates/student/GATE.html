@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}GATE{% endblock %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'static/css/delete.css' %">
+</head>
+<br>
+<h1>GATE Attempts</h1>
+<br>
+<a class="btn btn-light" href="{% url 'student:addGATE' %}" role="button">Add GATE Details</a>
+<br>
+
+<h6>{{error_message}}</h6><br>
+<h2>GATE Details: </h2>
+<br>
+<h4>Attempts: {{ countGATE }}</h4>
+<br>
+{% for i in allGATE %}
+<div class="card text-center">
+  <div class="card-header">
+    Seat No.- {{ i.seatNo }}
+  </div>
+  <div class="card-body">
+      <h5 class="card-text">Marks obtained- {{ i.marks }}</h5>
+    <p class="card-title">Rank(AIR)- {{ i.rank }}</p>
+    <p class="card-title">Exam Date- {{ i.testDate }}</p>
+    <td><a href="{% url 'student:delete_items' i.id 'GATE' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

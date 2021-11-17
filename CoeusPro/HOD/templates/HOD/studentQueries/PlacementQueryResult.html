@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Placed Students in {{ year }}{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Placed Students</h1><br>
+
+        <h3>Count of Placed Students in year {{year}}: {{ countPlacements }}</h3>
+        <br>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of Placed Students in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Student Name</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Domain</th>
+                <th scope="col">CTC</th>
+                <th scope="col">Role</th>
+                  <th scope="col">Year of Placement</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredPlacements %}
+                <tr class="table-primary">
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.companyName }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.ctc }}</td>
+                    <td>{{ i.role }}</td>
+                    <td>{{ i.yearPlaced }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

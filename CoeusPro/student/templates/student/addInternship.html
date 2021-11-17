@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Internships{% endblock %}
+{% load static %}
+{% block content %}
+<h1>Internship Details</h1>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="companyName">
+            Company Name:
+        </label>
+        <div class="col-sm-10">
+            <input id="companyName" maxlength="30" name="companyName" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="domain">
+            Domain of the Company:
+        </label>
+        <div class="col-sm-10">
+            <input id="domain" maxlength="30" name="domain" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group col-sm-10">
+        <label class="control-label col-sm-2" for="startDate">
+            Start Date:
+        </label>
+        <input id="startDate" name="startDate" type="date" class="form-control" required>
+    </div>
+    <div class="form-group col-sm-10">
+        <label class="control-label col-sm-2" for="endDate">
+            End Date:
+        </label>
+        <input id="endDate" name="endDate" type="date" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="details">
+            Details:
+        </label>
+        <div class="col-sm-10">
+            <input id="details" name="details" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="mode">
+            Mode:
+        </label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="mode" id="online" value="Online" checked>
+            <label class="form-check-label" for="exampleRadios1">Online</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="mode" id="offline" value="On-site">
+            <label class="form-check-label" for="exampleRadios2">In-place</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="internshipType">
+            Mode:
+        </label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="internshipType" id="winter" value="Winter" checked>
+            <label class="form-check-label" for="exampleRadios1">Winter</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="internshipType" id="summer" value="Summer">
+            <label class="form-check-label" for="exampleRadios2">Summer</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="certification">
+            Upload Certificate:
+        </label>
+        <div class="col-sm-10">
+            <input id="certification" name="certification" type="file" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Save Internship Details</button>
+        </div>
+    </div>
+    <br>
+</form>
+<script src="{% static '/js/DateValidation.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Competitions{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>Competitions Won</h1><br>
+
+        <!--<h3>Count of Papers published in year {{year}}: {{ countPubPapers }}</h3>
+        <h3>List of Papers published in year {{year}}: </h3>-->
+
+        <h3>Count of Competitions won in year {{year}}: {{ countComps }}</h3>
+        <br>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <br>
+        <h3>List of Competitions won in year {{year}}: </h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Competition Name</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">PRN</th>
+                <th scope="col">Organized by</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Project</th>
+                  <th scope="col">Mode</th>
+                  <th scope="col">Winner/Participant</th>
+                  <th scope="col">Certification</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredComps %}
+                <tr class="table-primary">
+                    <td>{{ i.0.compname }}</td>
+                    <td>{{ i.0.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.0.user.student.PRN }}</td>
+                    <td>{{ i.0.organizer }}</td>
+                    <td>{{ i.0.location }}</td>
+                    <td>{{ i.0.projectTitle }}</td>
+                    <td>
+                        {% if i.0.mode == True %}
+                            Online
+                        {% else %}
+                            Offline
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.0.winner == True %}
+                            Winner
+                        {% else %}
+                            Participant
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.1.certBool == True %}
+                        <a href="{{i.1.certification}}">Download</a>
+                        {% else %}
+                        <p>NA</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

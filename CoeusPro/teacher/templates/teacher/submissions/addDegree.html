@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Degrees{% endblock %}
+{% load static %}
+{% block content %}
+<h1>Add a Degree</h1>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="namedegree">
+            Degree Name:
+        </label>
+        <div class="col-sm-10">
+            <input id="namedegree" maxlength="30" name="namedegree" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="namecllg">
+            Name of the College:
+        </label>
+        <div class="col-sm-10">
+            <input id="namecllg" maxlength="30" name="namecllg" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="namefaculty">
+            Faculty Name:
+        </label>
+        <div class="col-sm-10">
+            <input id="namefaculty" maxlength="20" name="namefaculty" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="yearpassing">
+            Passing Year:
+        </label>
+        <input id="yearpassing" name="yearpassing" type="number" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="certification">
+            Upload Certificate:
+        </label>
+        <div class="col-sm-10">
+            <input id="certification" name="certification" type="file" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Add Degree</button>
+        </div>
+    </div>
+</form>
+    <script src="{% static '/js/DateValidation.js' %}"></script>
+{% endblock %}

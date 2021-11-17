@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}GRE{% endblock %}
+{% load static %}
+{% block content %}
+<h1>GRE scores</h1>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="regNo">
+            Registration number:
+        </label>
+        <div class="col-sm-10">
+            <input id="regNo" maxlength="30" name="regNo" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group col-sm-10">
+        <label class="control-label col-sm-2" for="testDate">
+            Test Date:
+        </label>
+        <input id="testDate" name="testDate" type="date" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="marks">
+            Marks:
+        </label>
+        <div class="col-sm-10">
+            <input id="marks" maxlength="30" name="marks" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="totalMarks">
+            Total Marks (Out of):
+        </label>
+        <div class="col-sm-10">
+            <input id="totalMarks" name="totalMarks" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Save GRE Score</button>
+        </div>
+    </div>
+</form>
+    <script src="{% static '/js/DateValidation.js' %}"></script>
+{% endblock %}

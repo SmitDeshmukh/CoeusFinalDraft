@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Startups{% endblock %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'static/css/delete.css' %">
+</head>
+<br>
+<h1>Startups</h1>
+<br>
+<a class="btn btn-light" href="{% url 'student:addStartUp' %}" role="button">Add Startup</a>
+<br>
+<!--View Startup Details-->
+<h6>{{error_message}}</h6><br>
+<h2>Startup Details: </h2>
+<br>
+<h4>Startup Count: {{ countStartUp }}</h4>
+<br>
+{% for i in allStartUp %}
+<div class="card text-center">
+  <div class="card-header">
+    Name: {{ i.companyName }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Registration year- {{ i.year }}</h5>
+    <p class="card-text">Registration Number- {{ i.registrationNumber }}</p>
+    <h5 class="card-title">Domain- {{ i.domain }}</h5>
+      <p class="card-text">Supporting Agency- {{ i.supportingAgency }}</p>
+
+    <td><a href="{% url 'student:delete_items' i.id 'StartUp' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

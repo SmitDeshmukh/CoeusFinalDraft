@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}MOOCs{% endblock %}
+{% load static %}
+{% block content %}
+<br><h1>MOOCs Completed</h1><br>
+
+        <!--<h3>Count of Papers published in year {{year}}: {{ countPubPapers }}</h3>
+        <h3>List of Papers published in year {{year}}: </h3>-->
+
+        <h3>Count of MOOCs Completed in year {{year}}: {{ countOnlineCourses }}</h3>
+        <br>
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success">Download CSV</button>
+              </div>
+          </div>
+      </form>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="table-info">
+                <th scope="col">Course Name</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">PRN</th>
+                <th scope="col">Domain</th>
+                  <th scope="col">Platform</th>
+                  <th scope="col">Certification</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in requiredOnlineCourses %}
+                <tr class="table-primary">
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                    <td>{{ i.user.student.PRN }}</td>
+                    <td>{{ i.domain }}</td>
+                    <td>{{ i.platform }}</td>
+                    <td>
+                        {% if i.certification != "NA" %}
+                            <a href="{{i.certification}}">Download</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+{% endblock %}

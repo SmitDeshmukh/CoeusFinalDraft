@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Graduation Exit Surveys{% endblock %}
+
+{% block content %}
+<br>
+<h1>Graduation Exit Surveys</h1>
+<br>
+<!--Add a Grade Exit Survey-->
+<br>
+<a class="btn btn-light" href="{% url 'HOD:addGraduationExitSurvey' %}" role="button">Add a Graduation Exit Survey</a>
+<br><br><br>
+<!--View All Grade Exit Surveys-->
+
+<h2>Your Graduation Exit Surveys: </h2>
+<br>
+<h4>Graduation Exit Surveys Count: {{ countGradES }}</h4>
+<br><br>
+{% for i in allGradES %}
+<div class="card text-center">
+    <div class="card-header">
+        Department Name:  {{ i.deptname }}
+    </div>
+
+    <!-- <h5 class="card-title">{{ i.papers.mode }}</h5> -->
+    <h5 class="card-title">Tenure: {{ i.startYear }} - {{ i.endYear }}</h5>
+    <div class="form-group">
+        <a href=" {{i.uploadgradeexitsurvey}} " class="btn btn-primary">Download Grade Exit Survey</a>
+    </div>
+    <td><a href="{% url 'HOD:delete_items' i.id 'GraduationExitSurveys' %}"><button type="button" class="btn btn-danger">Delete Graduation Exit Survey</button></a></td>
+
+
+</div>
+<br>
+{% endfor %}
+
+{% endblock %}

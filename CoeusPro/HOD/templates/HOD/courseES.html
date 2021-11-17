@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Course Exit Surveys{% endblock %}
+
+{% block content %}
+<br>
+<h1>Course Exit Surveys</h1>
+<br>
+<!--Add a Course Exit Survey-->
+<br>
+<a class="btn btn-light" href="{% url 'HOD:addCourseES' %}" role="button">Add a Course Exit Survey</a>
+<br><br><br>
+<!--View All Course Exit Surveys-->
+
+<h2>Your Course Exit Surveys: </h2>
+<br>
+<h4>Course Exit Surveys Count: {{ countCourseES }}</h4>
+<br><br>
+{% for i in allCourseES %}
+<div class="card text-center">
+    <div class="card-header">
+        Course Name:  {{ i.name }}
+    </div>
+    <h5 class="card-title">Course Code: {{ i.coursecode }}</h5>
+
+    <!-- <h5 class="card-title">{{ i.papers.mode }}</h5> -->
+    <p class="card-text">Class: {{ i.courseclass }}</p>
+    <h5 class="card-title">Year: {{ i.year }}</h5>
+    <p class="card-text">Semester: {{ i.semester }}</p>
+    <div class="form-group">
+        <a href=" {{i.uploadcourseexitsurvey}} " class="btn btn-primary">Download Course Exit Survey</a>
+    </div>
+    <td><a href="{% url 'HOD:delete_items' i.id 'CourseExitSurveys' %}"><button type="button" class="btn btn-danger">Delete Course Exit Survey</button></a></td>
+</div>
+<br>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}MOOCs{% endblock %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'static/css/delete.css' %">
+    <script>
+        var c = "course";
+
+    </script>
+</head>
+<br>
+<h1>MOOCs</h1>
+<br>
+<a class="btn btn-light" href="{% url 'student:addCourse' %}" role="button">Add a MOOC</a>
+<br>
+<!--View All Courses-->
+<h6>{{error_message}}</h6><br>
+<h2>Your MOOCs: </h2>
+<br>
+<h4>MOOC Count: {{ countCourses }}</h4>
+<br><br>
+{% for i in allCourses %}
+<div class="card text-center">
+  <div class="card-header">
+      MOOC Name: {{ i.name }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Domain: {{ i.domain }}</h5>
+    <p class="card-text">Platform: {{ i.platform }}</p>
+    {% if i.certification != "NA" %}
+    <a href="{{i.certification}}" class="btn btn-primary">Download Certificate</a>
+    {% endif %}
+  </div>
+    <td><a href="{% url 'student:delete_items' i.id 'courses' %}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+    <br>
+  <div class="card-footer text-muted">
+    {{ i.startDate.day }}/{{ i.startDate.month }}/{{ i.startDate.year }} - {{ i.endDate.day }}/{{i.endDate.month}}/{{i.endDate.year}}
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

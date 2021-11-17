@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Competitions{% endblock %}
+{% load static %}
+{% block content %}
+
+<br>
+<h1>Competitions</h1>
+<br>
+<a class="btn btn-light" href="{% url 'student:addCompetition' %}" role="button">Add a Competition</a>
+<a class="btn btn-light" href="{% url 'student:addCompetitionCertificate' %}" role="button">Add a Competition Certificate</a>
+<br>
+<!--View All Competitions-->
+
+<h2>Your Competitions: </h2>
+<br>
+<h4>Competition Count: {{ countCompetitions }}</h4>
+<br>
+{% for i in allCompetitions %}
+<div class="card text-center">
+  <div class="card-header">
+    {{ i.comps.organizer }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Competition Name- {{ i.comps.compname }}</h5>
+    <p class="card-text">Location- {{ i.comps.location }}</p>
+     {% if i.comps.winner %}
+      <h5 class="card-title">Winner</h5>
+    {% else %}
+      <h5 class="card-title">Participant</h5>
+    {% endif %}
+
+    {% if i.comps.mode %}
+      <h5 class="card-title">Online</h5>
+    {% else %}
+      <h5 class="card-title">Offline</h5>
+    {% endif %}
+    <h6 class="card-title">Title- {{ i.comps.projectTitle }}</h6>
+    <p class="card-text">Description- {{ i.comps.description }}</p>
+    {% if i.certBool == True %}
+    <a href="{{i.certification}}" class="btn btn-primary">Download Certificate</a>
+    {% endif %}
+
+  </div>
+
+  <div class="card-footer text-muted">
+    {{ i.comps.startDate.day }}/{{ i.comps.startDate.month }}/{{ i.comps.startDate.year }} - {{ i.comps.endDate.day }}/{{ i.comps.endDate.month }}/{{ i.comps.endDate.year }}
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

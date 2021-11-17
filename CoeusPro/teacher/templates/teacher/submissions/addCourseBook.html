@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}Add Course Book{% endblock %}
+{% load static %}
+{% block content %}
+<br>
+<h1>Add Course Book</h1>
+<br>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">
+            Course Name:
+        </label>
+        <div class="col-sm-10">
+            <input id="name" maxlength="30" name="name" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="coursecode">
+            Course Code:
+        </label>
+        <div class="col-sm-10">
+            <input id="coursecode" maxlength="30" name="coursecode" type="text" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="coursetype">
+            Course Type:
+        </label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="coursetype" id="theory" value="Theory" checked>
+            <label class="form-check-label" for="exampleRadios1">Theory</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="coursetype" id="lab" value="Laboratory">
+            <label class="form-check-label" for="exampleRadios2">Laboratory</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="acaclass">
+            Class:
+        </label>
+        <div class="col-sm-10">
+            <select name="acaclass" id="acaclass" class="form-control" required>
+                <option name="first" value="1">First Year</option>
+                <option name="second" value="2">Second Year</option>
+                <option name="third" value="3">Third Year</option>
+                <option name="fourth" value="4">Fourth Year</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="semester">
+            Semester:
+        </label>
+        <div class="col-sm-10">
+            <select name="semester" id="semester" class="form-control" required>
+                <option name="first" value="1">Sem 1</option>
+                <option name="second" value="2">Sem 2</option>
+                <option name="third" value="3">Sem 3</option>
+                <option name="fourth" value="4">Sem 4</option>
+                <option name="fifth" value="5">Sem 5</option>
+                <option name="sixth" value="6">Sem 6</option>
+                <option name="seventh" value="7">Sem 7</option>
+                <option name="eighth" value="8">Sem 8</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="acayear">
+            Year:
+        </label>
+        <select name="acayear" id="ddlYears"></select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="coursebook">
+            Upload Course Book:
+        </label>
+        <div class="col-sm-10">
+            <input id="coursebook" name="coursebook" type="file" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Add Course Book</button>
+        </div>
+    </div>
+</form>
+    <script src="{% static '/js/DateValidation.js' %}"></script>
+<script src="{% static '/js/paper.js' %}"></script>
+{% endblock %}
