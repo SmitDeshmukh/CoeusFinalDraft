@@ -1,0 +1,1 @@
+web: gunicorn CoeusPro.wsgi --log-file -

@@ -6,56 +6,14 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="818b5ec3-b2f4-4ac7-84f0-e06e56bca408" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/HOD/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CoeusPro/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CoeusPro/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/addCourseES.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/addCourseES.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/PEQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/PEQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptCourseQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptCourseQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptFdpQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptFdpQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptGlQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptGlQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptPaperQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptPaperQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptSttpQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptSttpQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptWebiQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptWebiQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptWorkQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/deptQueries/deptWorkQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/fdpquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/fdpquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/glquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/glquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/paperquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/paperquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/sttpquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/sttpquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/webinarquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/webinarquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/workquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/facultyQueries/workquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/GATEQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/GATEQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/GREQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/GREQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/InternshipQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/InternshipQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/PEStuQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/PEStuQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/PlacementQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/PlacementQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/StartupQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/StartupQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/TOEFLQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/TOEFLQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/completeSTUResult.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/completeSTUResult.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/graduationQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/graduationQuery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/projectquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/projectquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/stucompquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/stucompquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/studentsNotUpdated.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/studentsNotUpdated.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/studentsUpdated.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/studentsUpdated.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/stupaperquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/HOD/templates/HOD/studentQueries/stupaperquery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classteacher/templates/FacultyHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/classteacher/templates/FacultyHome.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/templates/student/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/student/templates/student/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/student/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/templates/teacher/attendedActivities/addPaper.html" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/templates/teacher/attendedActivities/addPaper.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher/templates/teacher/facultyHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/teacher/templates/teacher/facultyHome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoeusPro/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CoeusPro/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,11 +54,20 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="532" y="210" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1637135020816">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="532" y="210" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.816@0.0.1536.816" timestamp="1637135020816" />
     <state x="479" y="112" width="578" height="616" key="find.popup" timestamp="1636561025735">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="479" y="112" width="578" height="616" key="find.popup/0.0.1536.816@0.0.1536.816" timestamp="1636561025735" />
+    <state x="431" y="137" key="search.everywhere.popup" timestamp="1637134935881">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="431" y="137" key="search.everywhere.popup/0.0.1536.816@0.0.1536.816" timestamp="1637134935881" />
   </component>
 </project>
