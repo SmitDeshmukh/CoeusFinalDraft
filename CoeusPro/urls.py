@@ -20,6 +20,6 @@ urlpatterns = [
                   path('HOD', include('HOD.urls', namespace='HOD')),
                   path('classteacher', include('classteacher.urls', namespace='classteacher')),
                   path('profile/<str:user>', views.belongsto, name='profile'),
-                  url(r'^media/(?P<path>.*)$', serve, {'document_root':       settings.MEDIA_ROOT}),
-                  url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+                  #url(r'^media/(?P<path>.*)$', serve, {'document_root':       settings.MEDIA_ROOT}),
+                  #url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
