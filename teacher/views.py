@@ -28,7 +28,8 @@ from teacher.models import wcesttp as WCESttp
 from django.contrib.auth.hashers import make_password
 from django.core.files.storage import FileSystemStorage
 import shortuuid
-
+import requests
+import json
 
 # if group == 'student_group':
 #     return render(request, 'student/home.html', {'student': userr, user: user})
@@ -375,7 +376,7 @@ class addWebinar(View):
         else:
             return render(request, template_name)
 
-    def post(self, request, template_name='student/attendedActivities/addWebinar.html'):
+    def post(self, request, template_name='teacher/attendedActivities/addWebinar.html'):
         group = request.user.groups.all()[0].name
         if isFaculty(group) == 0:
             return render(request, 'login.html')
@@ -396,16 +397,18 @@ class addWebinar(View):
             else:
                 inorout = False
             domain = request.POST.get('domain')
+
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
+                
                 publishWebinar = Webi(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
-                                      endDate=endDate, domain=domain, user=user, inorout=inorout,
-                                      certification=certification, certBool=certBool)
+                                    endDate=endDate, domain=domain, user=user, inorout=inorout,
+                                    certification=certification, certBool=certBool)
                 publishWebinar.save()
 
             except:
@@ -416,7 +419,7 @@ class addWebinar(View):
                                       certification=certification, certBool=certBool)
                 publishWebinar.save()
 
-            err = {'error_message': "Webinar Added Successfully."}
+            err = {"error_message": "Webinar Added Successfully."}
             return render(request, template_name, err)
 
 
@@ -612,8 +615,6 @@ class sttps(View):
             return render(request, template_name, args)
 
 
-
-
 class addSttp(View):
     def get(self, request, template_name='teacher/attendedActivities/addSttp.html'):
         group = request.user.groups.all()[0].name
@@ -687,9 +688,6 @@ class coursebooks(View):
             args["countCourseBooks"] = countCourseBooks
             return render(request, template_name, args)
 
-
-
-
 ####Submissions VEERJA####
 # CourseBooks
 class addCourseBook(View):
@@ -720,6 +718,7 @@ class addCourseBook(View):
                 filename = fs.save(shortuuid.uuid(), coursebook)
                 url = fs.url(filename)
                 coursebook = url
+                print(coursebook)
                 publishCourseBook = CourseBook(name=name, coursecode=coursecode, coursetype=coursetype,
                                                acaclass=acaclass,
                                                acayear=acayear,

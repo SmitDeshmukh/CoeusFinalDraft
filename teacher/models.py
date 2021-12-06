@@ -75,7 +75,7 @@ class wcewebinars(models.Model):
     startDate = models.DateTimeField(default=timezone.now)
     endDate = models.DateTimeField(default=timezone.now)
     numberOfParticipants = models.IntegerField()
-    certification = models.URLField()
+    certification = models.CharField(default='https://storage.googleapis.com/coeus-1482f.appspot.com/jrJHaAmxio5spt4okAh6Pi.pdf', max_length=500)
     certBool = models.BooleanField()
     
     def __str__(self):
