@@ -88,9 +88,10 @@ class facultyFormView(View):
             return render(request, template_name)
 
         profile = request.FILES['profile']
-        fs = FileSystemStorage()
-        filename = fs.save(shortuuid.uuid(), profile)
-        url = fs.url(filename)
+        site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+        up = {'file':(profile.name, profile.read(), "multipart/form-data")}
+        resp = requests.post(site, files=up).json()
+        url = resp['link']
 
         facultyData = Faculty(user=user, dept=department, degree=degree, profile=url, desig=desig)
         facultyData.save()
@@ -129,8 +130,10 @@ class facultyProfileEditView(View):
             url = request.user.faculty.profile
         else:
             profile = request.FILES['profile']
-            filename = fs.save(shortuuid.uuid(), profile)
-            url = fs.url(filename)
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(profile.name, profile.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            url = resp['link']
         try:
             teacher.dept = department
             teacher.degree = degree
@@ -320,12 +323,12 @@ class addCourse(View):
                 inorout = False
 
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishCourse = Coursera(name=name, domain=domain, platform=platform, inorout=inorout,
                                          durationweeks=durationweeks,
                                          endDate=endDate,
@@ -364,9 +367,6 @@ class webinars(View):
             args["allWebinars"] = allWebinars
             args["countWebinars"] = countWebinars
             return render(request, template_name, args)
-
-
-
 
 class addWebinar(View):
     def get(self, request, template_name='teacher/attendedActivities/addWebinar.html'):
@@ -477,12 +477,12 @@ class addWorkshop(View):
             else:
                 inorout = False
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishWorkshop = Work(name=name, organizer=organizer, location=location, mode=mode,
                                        startDate=startDate,
                                        endDate=endDate, user=user, domain=domain, inorout=inorout,
@@ -564,12 +564,12 @@ class addFdp(View):
             else:
                 inorout = False
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishFdp = FDP(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                  endDate=endDate, user=user, domain=domain, inorout=inorout,
                                  certification=certification, certBool=certBool)
@@ -646,12 +646,12 @@ class addSttp(View):
             else:
                 inorout = False
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishSttp = STTP(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                    endDate=endDate, user=user, domain=domain, inorout=inorout,
                                    certification=certification, certBool=certBool)
@@ -713,12 +713,11 @@ class addCourseBook(View):
             acayear = request.POST.get('acayear')
             semester = request.POST.get('semester')  ##use dropdown, refer to student profile for the logic
             try:
-                coursebook = request.FILES['coursebook']  ##the faculty is gonna upload a literal book of 60-70 pages##
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), coursebook)
-                url = fs.url(filename)
-                coursebook = url
-                print(coursebook)
+                coursebook = request.FILES['coursebook']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(coursebook.name, coursebook.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                coursebook = resp['link']
                 publishCourseBook = CourseBook(name=name, coursecode=coursecode, coursetype=coursetype,
                                                acaclass=acaclass,
                                                acayear=acayear,
@@ -779,11 +778,12 @@ class addHighestDegree(View):
             yearpassing = request.POST.get(
                 'yearpassing')  ##use a dropdown and use the year dropdown logic we used for year paper
             try:
+                certBool = True
                 certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishDegree = Degree(user=user, namefaculty=namefaculty, namedegree=namedegree, namecllg=namecllg,
                                        yearpassing=yearpassing, certification=certification)
                 publishDegree.save()
@@ -851,12 +851,12 @@ class addWCEWorkshop(View):
             endDate = request.POST.get('endDate')
 
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishWCEWorkshop = WCEWork(name=name, organizer=organizer, location=location, mode=mode,
                                              startDate=startDate,
                                              endDate=endDate, user=user, domain=domain, role=role,
@@ -897,9 +897,6 @@ class wcefdps(View):
             args["countWCEFdps"] = countWCEFdps
             return render(request, template_name, args)
 
-
-
-
 class addWCEFdp(View):
     def get(self, request, template_name='teacher/organizedActivities/addWCEFdp.html'):
         group = request.user.groups.all()[0].name
@@ -929,12 +926,12 @@ class addWCEFdp(View):
             endDate = request.POST.get('endDate')
 
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishWCEFdp = WCEFdp(name=name, organizer=organizer, location=location, mode=mode,
                                        startDate=startDate,
                                        endDate=endDate, user=user, domain=domain, role=role,
@@ -975,9 +972,6 @@ class wcewebinars(View):
             args["countWCEWebinars"] = countWCEWebinars
             return render(request, template_name, args)
 
-
-
-
 class addWCEWebinar(View):
     def get(self, request, template_name='teacher/organizedActivities/addWCEWebinar.html'):
         group = request.user.groups.all()[0].name
@@ -1007,12 +1001,12 @@ class addWCEWebinar(View):
             endDate = request.POST.get('endDate')
 
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishWCEWebinar = WCEWebinar(name=name, organizer=organizer, location=location, mode=mode,
                                                startDate=startDate,
                                                endDate=endDate, user=user, domain=domain, role=role,
@@ -1053,9 +1047,6 @@ class wceconferences(View):
             args["allWCEConferences"] = allWCEConferences
             args["countWCEConferences"] = countWCEConferences
             return render(request, template_name, args)
-
-
-
 
 class addWCEConference(View):
     def get(self, request, template_name='teacher/organizedActivities/addWCEConference.html'):
@@ -1178,9 +1169,6 @@ class wcesttps(View):
             args["countWCESttps"] = countWCESttps
             return render(request, template_name, args)
 
-
-
-
 class addWCESttp(View):
     def get(self, request, template_name='teacher/organizedActivities/addWCESttp.html'):
         group = request.user.groups.all()[0].name
@@ -1209,12 +1197,12 @@ class addWCESttp(View):
             endDate = request.POST.get('endDate')
             numberOfParticipants = request.POST.get('numberOfParticipants')
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishWCESttp = WCESttp(name=name, organizer=organizer, location=location, mode=mode,
                                          startDate=startDate,
                                          endDate=endDate, user=user, domain=domain, role=role,

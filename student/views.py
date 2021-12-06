@@ -21,6 +21,7 @@ from classteacher.models import PETakenByStudent
 from django.contrib.auth.hashers import make_password
 from django.core.files.storage import FileSystemStorage
 import shortuuid
+import requests
 
 
 # if group == :
@@ -161,12 +162,12 @@ class addCourse(View):
             user = request.user
 
             try:
-                certification = request.FILES['certification']
-                fs = FileSystemStorage()
-                filename = fs.save(shortuuid.uuid(), certification)
-                url = fs.url(filename)
-                certification = url
                 certBool = True
+                certification = request.FILES['certification']
+                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+                resp = requests.post(site, files=up).json()
+                certification = resp['link']
                 publishCourse = Coursera(name=name, domain=domain, platform=platform, startDate=startDate,
                                          endDate=endDate,
                                          user=user, certification=certification, certBool=certBool)
@@ -248,12 +249,12 @@ class addWebinar(View):
         user = request.user
 
         try:
-            certification = request.FILES['certification']
-            fs = FileSystemStorage()
-            filename = fs.save(shortuuid.uuid(), certification)
-            url = fs.url(filename)
-            certification = url
             certBool = True
+            certification = request.FILES['certification']
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            certification = resp['link']
             publishWebinar = Webi(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                   endDate=endDate, user=user, certification=certification, certBool=certBool)
             publishWebinar.save()
@@ -333,12 +334,12 @@ class addWorkshop(View):
         user = request.user
 
         try:
-            certification = request.FILES['certification']
-            fs = FileSystemStorage()
-            filename = fs.save(shortuuid.uuid(), certification)
-            url = fs.url(filename)
-            certification = url
             certBool = True
+            certification = request.FILES['certification']
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            certification = resp['link']
             publishWorkshop = Work(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                    endDate=endDate, user=user, certification=certification, certBool=certBool)
             publishWorkshop.save()
@@ -501,12 +502,12 @@ class addCompetitionCertificate(View):
         comps = request.POST.get('comp')
         certification = request.POST.get('certification')
         try:
-            certification = request.FILES['certification']
-            fs = FileSystemStorage()
-            filename = fs.save(shortuuid.uuid(), certification)
-            url = fs.url(filename)
-            certification = url
             certBool = True
+            certification = request.FILES['certification']
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            certification = resp['link']
             Memba.objects.filter(user=user, id=comps).update(certification=certification, certBool=certBool)
 
         except:
@@ -754,12 +755,12 @@ class addGATE(View):
         testDate = request.POST.get('testDate')
         user = request.user
         try:
-            marksheet = request.FILES['marksheet']
-            fs = FileSystemStorage()
-            filename = fs.save(shortuuid.uuid(), marksheet)
-            url = fs.url(filename)
-            marksheet = url
             marksheetBool = True
+            marksheet = request.FILES['marksheet']
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(marksheet.name, marksheet.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            marksheet = resp['link']
             publishGATE = gate(seatNo=seatNo, qualified=qualified, marks=marks, rank=rank, testDate=testDate, user=user,
                                marksheet=marksheet, marksheetBool=marksheetBool)
             publishGATE.save()
@@ -902,12 +903,12 @@ class addInternship(View):
         user = request.user
 
         try:
-            certification = request.FILES['certification']
-            fs = FileSystemStorage()
-            filename = fs.save(shortuuid.uuid(), certification)
-            url = fs.url(filename)
-            certification = url
             certBool = True
+            certification = request.FILES['certification']
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(certification.name, certification.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            certification = resp['link']
             internShip = Internship(companyName=companyName, internshipType=internshipType, domain=domain,
                                     details=details, mode=mode,
                                     startDate=startDate,

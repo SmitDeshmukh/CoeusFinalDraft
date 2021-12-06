@@ -57,6 +57,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 
+import requests
+
 
 def isNotHOD(group_name):
     if group_name == 'HOD_group':
@@ -180,10 +182,10 @@ class addCourseES(View):
 
         try:
             uploadcourseexitsurvey = request.FILES['uploadcourseexitsurvey']
-            fs = FileSystemStorage()
-            filename = fs.save(shortuuid.uuid(), uploadcourseexitsurvey)
-            url = fs.url(filename)
-            uploadcourseexitsurvey = url
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(uploadcourseexitsurvey.name, uploadcourseexitsurvey.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            uploadcourseexitsurvey = resp['link']
             publishCourseES = CourseES(name=name, coursecode=coursecode, courseclass=courseclass, year=year, user=user,
                                        semester=semester, uploadcourseexitsurvey=uploadcourseexitsurvey)
             publishCourseES.save()
@@ -240,10 +242,10 @@ class addDeptFS(View):
 
         try:
             uploaddeptexitsurvey = request.FILES['uploaddeptexitsurvey']
-            fs = FileSystemStorage()
-            filename = fs.save(shortuuid.uuid(), uploaddeptexitsurvey)
-            url = fs.url(filename)
-            uploaddeptexitsurvey = url
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(uploaddeptexitsurvey.name, uploaddeptexitsurvey.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            uploaddeptexitsurvey = resp['link']
             publishDeptES = DeptFS(deptname=deptname, courseclass=courseclass, year=year, user=user,
                                    semester=semester, uploaddeptexitsurvey=uploaddeptexitsurvey)
             publishDeptES.save()
@@ -299,10 +301,10 @@ class addGradES(View):
 
         try:
             uploadgradexitsurvey = request.FILES['uploadgradexitsurvey']
-            fs = FileSystemStorage()
-            filename = fs.save(shortuuid.uuid(), uploadgradexitsurvey)
-            url = fs.url(filename)
-            uploadgradexitsurvey = url
+            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+            up = {'file':(uploadgradexitsurvey.name, uploadgradexitsurvey.read(), "multipart/form-data")}
+            resp = requests.post(site, files=up).json()
+            uploadgradexitsurvey = resp['link']
             publishGradES = GradES(deptname=deptname, startYear=startYear, endYear=endYear, user=user,
                                    uploadgradexitsurvey=uploadgradexitsurvey)
             publishGradES.save()
