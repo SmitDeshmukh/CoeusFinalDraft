@@ -90,11 +90,11 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'miniproject',
-#         'HOST': '127.0.0.1',
+#         'NAME': 'datastore',
+#         'HOST': 'datastore.cbvavornmzze.ap-south-1.rds.amazonaws.com',
 #         'PORT': '3306',
-#         'USER': os.environ.get('MYSQL_USER_NAME'),
-#         'PASSWORD': os.environ.get('MYSQL_PASS'),
+#         'USER': "wcecse",
+#         'PASSWORD': "wce1947mysql",
 #     }
 # }
 # Password validation

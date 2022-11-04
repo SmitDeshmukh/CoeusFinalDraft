@@ -29,6 +29,11 @@ import requests
 # if group == 'HOD_group':
 #     return render(request, 'HOD/HODhome.html', {'HOD': userr, user:user})
 
+def getFileUploadLink(file):
+    site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+    up = {'file':(file.name, file.read(), "multipart/form-data")}
+    resp = requests.post(site, files=up).json()
+    return resp['link']
 
 def isNotStudent(group_name):
     if group_name == 'student_group':
@@ -164,10 +169,7 @@ class addCourse(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishCourse = Coursera(name=name, domain=domain, platform=platform, startDate=startDate,
                                          endDate=endDate,
                                          user=user, certification=certification, certBool=certBool)
@@ -251,10 +253,7 @@ class addWebinar(View):
         try:
             certBool = True
             certification = request.FILES['certification']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            certification = resp['link']
+            certification = getFileUploadLink(certification)
             publishWebinar = Webi(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                   endDate=endDate, user=user, certification=certification, certBool=certBool)
             publishWebinar.save()
@@ -336,10 +335,7 @@ class addWorkshop(View):
         try:
             certBool = True
             certification = request.FILES['certification']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            certification = resp['link']
+            certification = getFileUploadLink(certification)
             publishWorkshop = Work(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                    endDate=endDate, user=user, certification=certification, certBool=certBool)
             publishWorkshop.save()
@@ -504,10 +500,7 @@ class addCompetitionCertificate(View):
         try:
             certBool = True
             certification = request.FILES['certification']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            certification = resp['link']
+            certification = getFileUploadLink(certification)
             Memba.objects.filter(user=user, id=comps).update(certification=certification, certBool=certBool)
 
         except:
@@ -757,10 +750,7 @@ class addGATE(View):
         try:
             marksheetBool = True
             marksheet = request.FILES['marksheet']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(marksheet.name, marksheet.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            marksheet = resp['link']
+            marksheet = getFileUploadLink(marksheet)
             publishGATE = gate(seatNo=seatNo, qualified=qualified, marks=marks, rank=rank, testDate=testDate, user=user,
                                marksheet=marksheet, marksheetBool=marksheetBool)
             publishGATE.save()
@@ -905,10 +895,7 @@ class addInternship(View):
         try:
             certBool = True
             certification = request.FILES['certification']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            certification = resp['link']
+            certification = getFileUploadLink(certification)
             internShip = Internship(companyName=companyName, internshipType=internshipType, domain=domain,
                                     details=details, mode=mode,
                                     startDate=startDate,

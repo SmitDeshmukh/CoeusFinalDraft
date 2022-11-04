@@ -59,13 +59,17 @@ from django.db.models import Q
 
 import requests
 
+def getFileUploadLink(file):
+    site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+    up = {'file':(file.name, file.read(), "multipart/form-data")}
+    resp = requests.post(site, files=up).json()
+    return resp['link']
 
 def isNotHOD(group_name):
     if group_name == 'HOD_group':
         return False
     else:
         return True
-
 
 def HODHome(request):
     group = request.user.groups.all()[0].name
@@ -182,10 +186,7 @@ class addCourseES(View):
 
         try:
             uploadcourseexitsurvey = request.FILES['uploadcourseexitsurvey']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(uploadcourseexitsurvey.name, uploadcourseexitsurvey.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            uploadcourseexitsurvey = resp['link']
+            uploadcourseexitsurvey = getFileUploadLink(uploadcourseexitsurvey)
             publishCourseES = CourseES(name=name, coursecode=coursecode, courseclass=courseclass, year=year, user=user,
                                        semester=semester, uploadcourseexitsurvey=uploadcourseexitsurvey)
             publishCourseES.save()
@@ -242,10 +243,7 @@ class addDeptFS(View):
 
         try:
             uploaddeptexitsurvey = request.FILES['uploaddeptexitsurvey']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(uploaddeptexitsurvey.name, uploaddeptexitsurvey.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            uploaddeptexitsurvey = resp['link']
+            uploaddeptexitsurvey = getFileUploadLink(uploaddeptexitsurvey)
             publishDeptES = DeptFS(deptname=deptname, courseclass=courseclass, year=year, user=user,
                                    semester=semester, uploaddeptexitsurvey=uploaddeptexitsurvey)
             publishDeptES.save()
@@ -301,10 +299,7 @@ class addGradES(View):
 
         try:
             uploadgradexitsurvey = request.FILES['uploadgradexitsurvey']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(uploadgradexitsurvey.name, uploadgradexitsurvey.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            uploadgradexitsurvey = resp['link']
+            uploadgradexitsurvey = getFileUploadLink(uploadgradexitsurvey)
             publishGradES = GradES(deptname=deptname, startYear=startYear, endYear=endYear, user=user,
                                    uploadgradexitsurvey=uploadgradexitsurvey)
             publishGradES.save()

@@ -36,6 +36,11 @@ import json
 # if group == 'HOD_group':
 #     return render(request, 'HOD/HODhome.html', {'HOD': userr, user:user})
 
+def getFileUploadLink(file):
+    site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
+    up = {'file':(file.name, file.read(), "multipart/form-data")}
+    resp = requests.post(site, files=up).json()
+    return resp['link']
 
 def isFaculty(group_name):
     if group_name == 'faculty_group':
@@ -88,10 +93,7 @@ class facultyFormView(View):
             return render(request, template_name)
 
         profile = request.FILES['profile']
-        site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-        up = {'file':(profile.name, profile.read(), "multipart/form-data")}
-        resp = requests.post(site, files=up).json()
-        url = resp['link']
+        url = getFileUploadLink(profile)
 
         facultyData = Faculty(user=user, dept=department, degree=degree, profile=url, desig=desig)
         facultyData.save()
@@ -130,10 +132,7 @@ class facultyProfileEditView(View):
             url = request.user.faculty.profile
         else:
             profile = request.FILES['profile']
-            site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-            up = {'file':(profile.name, profile.read(), "multipart/form-data")}
-            resp = requests.post(site, files=up).json()
-            url = resp['link']
+            url = getFileUploadLink(profile)
         try:
             teacher.dept = department
             teacher.degree = degree
@@ -325,10 +324,7 @@ class addCourse(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishCourse = Coursera(name=name, domain=domain, platform=platform, inorout=inorout,
                                          durationweeks=durationweeks,
                                          endDate=endDate,
@@ -401,10 +397,7 @@ class addWebinar(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 
                 publishWebinar = Webi(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                     endDate=endDate, domain=domain, user=user, inorout=inorout,
@@ -479,10 +472,7 @@ class addWorkshop(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishWorkshop = Work(name=name, organizer=organizer, location=location, mode=mode,
                                        startDate=startDate,
                                        endDate=endDate, user=user, domain=domain, inorout=inorout,
@@ -566,10 +556,7 @@ class addFdp(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishFdp = FDP(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                  endDate=endDate, user=user, domain=domain, inorout=inorout,
                                  certification=certification, certBool=certBool)
@@ -648,10 +635,7 @@ class addSttp(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishSttp = STTP(name=name, organizer=organizer, location=location, mode=mode, startDate=startDate,
                                    endDate=endDate, user=user, domain=domain, inorout=inorout,
                                    certification=certification, certBool=certBool)
@@ -714,10 +698,7 @@ class addCourseBook(View):
             semester = request.POST.get('semester')  ##use dropdown, refer to student profile for the logic
             try:
                 coursebook = request.FILES['coursebook']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(coursebook.name, coursebook.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                coursebook = resp['link']
+                coursebook = getFileUploadLink(coursebook)
                 publishCourseBook = CourseBook(name=name, coursecode=coursecode, coursetype=coursetype,
                                                acaclass=acaclass,
                                                acayear=acayear,
@@ -780,10 +761,7 @@ class addHighestDegree(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishDegree = Degree(user=user, namefaculty=namefaculty, namedegree=namedegree, namecllg=namecllg,
                                        yearpassing=yearpassing, certification=certification)
                 publishDegree.save()
@@ -853,10 +831,7 @@ class addWCEWorkshop(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishWCEWorkshop = WCEWork(name=name, organizer=organizer, location=location, mode=mode,
                                              startDate=startDate,
                                              endDate=endDate, user=user, domain=domain, role=role,
@@ -928,10 +903,7 @@ class addWCEFdp(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishWCEFdp = WCEFdp(name=name, organizer=organizer, location=location, mode=mode,
                                        startDate=startDate,
                                        endDate=endDate, user=user, domain=domain, role=role,
@@ -1003,10 +975,7 @@ class addWCEWebinar(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishWCEWebinar = WCEWebinar(name=name, organizer=organizer, location=location, mode=mode,
                                                startDate=startDate,
                                                endDate=endDate, user=user, domain=domain, role=role,
@@ -1199,10 +1168,7 @@ class addWCESttp(View):
             try:
                 certBool = True
                 certification = request.FILES['certification']
-                site = 'https://asia-south1-coeus-1482f.cloudfunctions.net/api/upload-file'
-                up = {'file':(certification.name, certification.read(), "multipart/form-data")}
-                resp = requests.post(site, files=up).json()
-                certification = resp['link']
+                certification = getFileUploadLink(certification)
                 publishWCESttp = WCESttp(name=name, organizer=organizer, location=location, mode=mode,
                                          startDate=startDate,
                                          endDate=endDate, user=user, domain=domain, role=role,
